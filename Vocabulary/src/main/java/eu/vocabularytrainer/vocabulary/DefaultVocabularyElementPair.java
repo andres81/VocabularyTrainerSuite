@@ -18,12 +18,7 @@ package eu.vocabularytrainer.vocabulary;
 
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,25 +49,17 @@ public class DefaultVocabularyElementPair implements VocabularyElementPair {
     
     /**
      * 
-     */
-    private Map<Object,Object> decorators = null;
-    
-    /**
-     * 
-     * @param uuid
      * @param first
      * @param second
      */
-    public DefaultVocabularyElementPair(UUID uuid, Representative first, Representative second) {
-        if (uuid == null ||
-            first == null ||
+    public DefaultVocabularyElementPair(Representative first, Representative second) {
+        if (first == null ||
             second == null) {
             throw new NullPointerException();
         }
-        this.uuid = uuid;
+        this.uuid = UUID.randomUUID();
         entryOne = first;
         entryTwo = second;
-        decorators = new HashMap<>();
     }
     
     /**
@@ -88,7 +75,6 @@ public class DefaultVocabularyElementPair implements VocabularyElementPair {
         this.uuid = pair.getUuid();
         entryOne = pair.getFirst();
         entryTwo = pair.getSecond();
-        decorators = new HashMap<>();
     }
     
     /**

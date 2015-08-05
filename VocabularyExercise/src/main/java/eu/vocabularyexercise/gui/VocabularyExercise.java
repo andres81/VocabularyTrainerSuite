@@ -21,7 +21,9 @@ import eu.vocabularyexercise.domain.DefaultVocabularyModel;
 import eu.vocabularyexercise.domain.interfaces.VocabularyController;
 import eu.vocabularyexercise.domain.interfaces.VocabularyModel;
 import eu.vocabularytrainer.vocabulary.DefaultRepresentative;
+import eu.vocabularytrainer.vocabulary.DefaultVocabulary;
 import eu.vocabularytrainer.vocabulary.DefaultVocabularyElementPair;
+import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
 import java.awt.BorderLayout;
@@ -180,9 +182,10 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      * @param args 
      */
     public static void main(String[] args) {
-        System.out.println("lolololololol");
         VocabularyExercise exercise = new VocabularyExercise();
-        exercise.getModel().setVocabularyElementPairs(getRepresentatives());
+        Vocabulary voc = DefaultVocabulary.createFromXML("src/main/resources/lesson-1.xml");
+        System.err.println(voc.getPairs().size());
+        exercise.getModel().setVocabularyElementPairs(voc.getPairs());
         JFrame frame = new JFrame();
         JPanel pane = (JPanel) frame.getContentPane();
         pane.add(exercise, BorderLayout.CENTER);
@@ -204,25 +207,25 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
     public static List<VocabularyElementPair> getRepresentatives() {
         List<VocabularyElementPair> pairs = new ArrayList<>();
         
-        DefaultVocabularyElementPair pair = new DefaultVocabularyElementPair(new UUID(0,0),
-            new DefaultRepresentative(new UUID(1,11), "one", null),
-            new DefaultRepresentative(new UUID(2,22), "un", null));
+        DefaultVocabularyElementPair pair = new DefaultVocabularyElementPair(
+            new DefaultRepresentative("one", null),
+            new DefaultRepresentative("un", null));
         pairs.add(pair);
-        pair = new DefaultVocabularyElementPair(new UUID(1,1),
-            new DefaultRepresentative(new UUID(1,33), "two", null),
-            new DefaultRepresentative(new UUID(2,44), "deux", null));
+        pair = new DefaultVocabularyElementPair(
+            new DefaultRepresentative("two", null),
+            new DefaultRepresentative("deux", null));
         pairs.add(pair);
-        pair = new DefaultVocabularyElementPair(new UUID(2,2),
-            new DefaultRepresentative(new UUID(1,55), "three", null),
-            new DefaultRepresentative(new UUID(2,66), "trois", null));
+        pair = new DefaultVocabularyElementPair(
+            new DefaultRepresentative("three", null),
+            new DefaultRepresentative("trois", null));
         pairs.add(pair);
-        pair = new DefaultVocabularyElementPair(new UUID(3,3),
-            new DefaultRepresentative(new UUID(1,77), "four", null),
-            new DefaultRepresentative(new UUID(2,88), "quatre", null));
+        pair = new DefaultVocabularyElementPair(
+            new DefaultRepresentative("four", null),
+            new DefaultRepresentative("quatre", null));
         pairs.add(pair);
-        pair = new DefaultVocabularyElementPair(new UUID(4,4),
-            new DefaultRepresentative(new UUID(1,99), "five", null),
-            new DefaultRepresentative(new UUID(2,99), "cinque", null));
+        pair = new DefaultVocabularyElementPair(
+            new DefaultRepresentative("five", null),
+            new DefaultRepresentative("cinque", null));
         pairs.add(pair);
         return pairs;
     }

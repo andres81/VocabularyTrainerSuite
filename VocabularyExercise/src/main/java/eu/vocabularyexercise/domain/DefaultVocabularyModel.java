@@ -181,7 +181,7 @@ public class DefaultVocabularyModel extends Observable implements VocabularyMode
     @Override
     public VocabularyElementPair getActiveQueryPair() {
         if (activeQueryPair == null) {
-            activeQueryPair = new DefaultVocabularyElementPair(UUID.randomUUID(), new DefaultRepresentative(), new DefaultRepresentative());
+            activeQueryPair = new DefaultVocabularyElementPair(new DefaultRepresentative(), new DefaultRepresentative());
         }
         return activeQueryPair;
     }

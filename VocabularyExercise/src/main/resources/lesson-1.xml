@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="lesson.xsd"
+    id="1" 
+    name="alfabet">
+    
+    <vocabulary>
+        <instructions>
+            <iterations>
+                <iteration index="0">
+                    <query type="image"/>
+                    <options type="text"/>
+                    <columnorder>first-first</columnorder>
+                </iteration>
+                <iteration index="1">
+                    <query type="image"/>
+                    <options type="text"/>
+                    <columnorder>first-second</columnorder>
+                </iteration>
+                <iteration index="2">
+                    <query type="text"/>
+                    <options type="text"/>
+                    <columnorder>second-first</columnorder>
+                </iteration>
+                <iteration index="3">
+                    <query type="text"/>
+                    <options type="text"/>
+                    <columnorder>second-second</columnorder>
+                </iteration>
+            </iterations>
+        </instructions>
+        <pairs>
+            <pair>
+                <first>
+                    <text>un</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>one</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>deux</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>two</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>trois</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>three</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+        </pairs>
+    </vocabulary>
+</lesson>

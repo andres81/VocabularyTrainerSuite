@@ -61,18 +61,15 @@ public class DefaultRepresentative implements Representative {
     
     /**
      * 
-     * @param uuid
      * @param title
-     * @param image
+     * @param image 
      */
-    public DefaultRepresentative(UUID uuid, String title, Image image) {
+    public DefaultRepresentative(String title, Image image) {
         this();
-        if (uuid != null) {
-            this.uuid = uuid;
+        if (title == null) {
+            throw new NullPointerException();
         }
-        if (title != null) {
-            this.title = title;
-        }
+        this.title = title;
         if (image != null) {
             this.image = image;
         }

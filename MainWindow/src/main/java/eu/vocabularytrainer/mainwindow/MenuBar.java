@@ -1,5 +1,5 @@
 /**
- * VocabularyTrainer Copyright (C) 2015 André Schepers
+ * VocabularyTrainer Copyright (C) 2015 André Schepers andreschepers81@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

@@ -17,3 +17,4 @@ hs_err_pid*
 nb-configuration.xml
 /MainWindow/target/
 /MainApplication/target/
+*/target/*

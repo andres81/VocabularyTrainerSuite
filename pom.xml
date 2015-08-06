@@ -10,6 +10,8 @@
         <module>LessonCreator</module>
         <module>VocabularyXMLGenerator</module>
         <module>Vocabulary</module>
+        <module>MainWindow</module>
+        <module>MainApplication</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

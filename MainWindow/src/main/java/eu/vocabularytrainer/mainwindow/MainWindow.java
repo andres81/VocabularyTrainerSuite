@@ -16,23 +16,40 @@
  */
 package eu.vocabularytrainer.mainwindow;
 
-import eu.vocabularytrainer.mainwindow.MenuBar.ActionCommands;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JFileChooser;
+import eu.vocabularyexercise.gui.VocabularyExercise;
+import eu.vocabularytrainer.mainapplication.DefaultMainController;
+import eu.vocabularytrainer.mainapplication.DefaultMainModel;
+import eu.vocabularytrainer.mainapplication.interfaces.MainModel;
+import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
+import java.awt.BorderLayout;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JFrame;
 
 /**
  *
  * @author Andre Schepers andreschepers81@gmail.com
  */
-public class MainWindow extends JFrame implements ActionListener {
+public class MainWindow extends JFrame implements Observer {
+    
+    /**
+     * 
+     */
+    private VocabularyExercise exercise = null;
+    
+    /**
+     * 
+     */
+    private MainModel model;
     
     /**
      * 
      */
     public MainWindow() {
-        setJMenuBar(MenuBar.makeMenuBar(MainWindow.this));
+        model = new DefaultMainModel();
+        ((DefaultMainModel) model).addObserver(this);
+        setJMenuBar(new MenuBar(new DefaultMainController(model)));
+        getContentPane().add(getVocabularyExercise(), BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
         show();
@@ -40,27 +57,42 @@ public class MainWindow extends JFrame implements ActionListener {
     
     /**
      * 
-     * @param ae 
      */
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        if (ae.getActionCommand().equals(ActionCommands.LOAD_LESSON_XML.toString())) {
-            final JFileChooser fc = new JFileChooser();
-            int returnVal = fc.showOpenDialog(MainWindow.this);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-//                File file = fc.getSelectedFile();
-                System.out.println("Opening.");
-            } else {
-                System.out.println("Open command cancelled by user.");
-            }
-        }
+    private VocabularyExercise getVocabularyExercise() {
+       if (exercise == null) {
+           exercise = new VocabularyExercise();
+       }
+       return exercise;
     }
     
+    //--------------------------------------------------------------------------
+    // Main Function
+    //--------------------------------------------------------------------------
     /**
      * 
      * @param args 
      */
     public static void main(String[] args) {
        MainWindow mw = new MainWindow(); 
+    }
+
+    /**
+     * 
+     * @param o
+     * @param o1 
+     */
+    @Override
+    public void update(Observable o, Object o1) {
+        if (o == model &&
+            o1 instanceof MainModel.Changes) {
+            switch ((MainModel.Changes) o1) {
+                case NEW_VOCABULARY:
+                    Vocabulary vocabulary = model.getVocabulary();
+                    getVocabularyExercise().setVocabulary(vocabulary);
+                    break;
+            }
+            revalidate();
+//            pack();
+        }
     }
 }

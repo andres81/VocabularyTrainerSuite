@@ -16,62 +16,79 @@
  */
 package eu.vocabularytrainer.mainwindow;
 
+import eu.vocabularytrainer.mainapplication.interfaces.MainController;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author Andre Schepers andreschepers81@gmail.com
  */
-public class MenuBar {
+public final class MenuBar extends JMenuBar implements ActionListener {
     
     /**
      * 
      */
-    public enum ActionCommands {
-        
-        LOAD_LESSON_XML ("LOAD_LESSON_XML");
-        
-        private final String name;
-        
-        private ActionCommands(final String s) {
-            name = s;
-        }
-        
-        public boolean equalsName(String otherName) {
-            return (otherName == null) ? false : name.equals(otherName);
-        }
-        
-        @Override
-        public String toString() {
-            return this.name;
-        }
+    public static final String LOAD_LESSON_XML = "LOAD_LESSON_XML";
+    
+    private final MainController controller;
+    
+    /**
+     * 
+     * @param controller 
+     */
+    public MenuBar(MainController controller) {
+        this.controller = controller;
+        add(getVocabularyMenu(controller));
     }
     
-    /**
-     * 
-     * @param al
-     * @return 
-     */
-    public static JMenuBar makeMenuBar(ActionListener al) {
-        JMenuBar mb = new JMenuBar();
-        mb.add(makeVocabularyMenu(al));
-        return mb;
-    }
     
     /**
      * 
-     * @param al
+     * @param controller
      * @return 
      */
-    public static JMenu makeVocabularyMenu(ActionListener al) {
+    public JMenu getVocabularyMenu(MainController controller) {
         JMenu m = new JMenu("Vocabulary");
         JMenuItem menuItem = new JMenuItem("Load a lesson");
-        menuItem.setActionCommand(ActionCommands.LOAD_LESSON_XML.toString());
-        menuItem.addActionListener(al);
+        KeyStroke keyStrokeToOpen = KeyStroke.getKeyStroke(
+                KeyEvent.VK_X, 
+                KeyEvent.CTRL_DOWN_MASK);
+        menuItem.setAccelerator(keyStrokeToOpen);
+        menuItem.setActionCommand(MenuBar.LOAD_LESSON_XML);
+        menuItem.addActionListener(MenuBar.this);
         m.add(menuItem);
         return m;
+    }
+
+    /**
+     * 
+     * @param ae 
+     */
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getActionCommand().equals(MenuBar.LOAD_LESSON_XML)) {
+            loadLessonXml();
+        }
+    }
+    
+    /**
+     * 
+     */
+    private void loadLessonXml() {
+        final JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.xml", "xml");
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(MenuBar.this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            controller.loadXmlFile(fc.getSelectedFile());
+        }
     }
 }

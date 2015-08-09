@@ -17,7 +17,7 @@
 package eu.vocabularyexercise.domain;
 
 import eu.vocabularyexercise.domain.interfaces.VocabularyController;
-import eu.vocabularyexercise.domain.interfaces.VocabularyModel;
+import eu.vocabularyexercise.domain.interfaces.VocabularyExerciseModel;
 import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,13 +34,13 @@ public class DefaultVocabularyController implements VocabularyController {
     /**
      * 
      */
-    private VocabularyModel model = null;
+    private VocabularyExerciseModel model = null;
     
     /**
      * 
      * @param model
      */
-    public DefaultVocabularyController(VocabularyModel model) {
+    public DefaultVocabularyController(VocabularyExerciseModel model) {
         if (model == null) {
             throw new NullPointerException();
         }
@@ -65,7 +65,7 @@ public class DefaultVocabularyController implements VocabularyController {
      * @param model 
      */
     @Override
-    public void setModel(VocabularyModel model) {
+    public void setModel(VocabularyExerciseModel model) {
         this.model = model;
     }
 }

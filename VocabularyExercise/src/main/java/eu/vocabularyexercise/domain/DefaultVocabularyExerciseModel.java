@@ -17,7 +17,7 @@
 package eu.vocabularyexercise.domain;
 
 
-import eu.vocabularyexercise.domain.interfaces.VocabularyModel;
+import eu.vocabularyexercise.domain.interfaces.VocabularyExerciseModel;
 import eu.vocabularytrainer.vocabulary.DefaultRepresentative;
 import eu.vocabularytrainer.vocabulary.DefaultVocabularyElementPair;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
@@ -43,10 +43,10 @@ import org.apache.logging.log4j.Logger;
  *
  * @author andres81
  */
-public class DefaultVocabularyModel extends Observable implements VocabularyModel {
+public class DefaultVocabularyExerciseModel extends Observable implements VocabularyExerciseModel {
     
     // Logging
-    private static final Logger logger = LogManager.getLogger(DefaultVocabularyModel.class);
+    private static final Logger logger = LogManager.getLogger(DefaultVocabularyExerciseModel.class);
     
     /**
      * 
@@ -81,7 +81,7 @@ public class DefaultVocabularyModel extends Observable implements VocabularyMode
     /**
      * 
      */
-    public DefaultVocabularyModel() {
+    public DefaultVocabularyExerciseModel() {
         direction = Direction.COLUMNONETOTWO;
     }
     
@@ -113,8 +113,9 @@ public class DefaultVocabularyModel extends Observable implements VocabularyMode
         if (this.pairs == null) {
             this.pairs = new HashMap<>();
         }
+        this.pairs.clear();
         for (VocabularyElementPair pair : pairs) {
-            this.pairs.put(pair.getUuid(), new DefaultVocabularyElementPair(pair));
+            this.pairs.put(pair.getUuid(), pair);
         }
         updateOptions();
         setRandomActiveQueryPair();

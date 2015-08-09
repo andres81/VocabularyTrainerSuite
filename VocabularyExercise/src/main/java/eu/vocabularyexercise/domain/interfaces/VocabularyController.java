@@ -34,5 +34,5 @@ public interface VocabularyController {
      * 
      * @param model 
      */
-    public void setModel(VocabularyModel model);
+    public void setModel(VocabularyExerciseModel model);
 }

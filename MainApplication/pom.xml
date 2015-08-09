@@ -9,7 +9,12 @@
     <artifactId>MainApplication</artifactId>
     <packaging>jar</packaging>
     <dependencies>
-        
+        <dependency>
+            <groupId>eu.vocabularytrainer</groupId>
+            <artifactId>Vocabulary</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>

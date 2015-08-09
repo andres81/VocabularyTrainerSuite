@@ -27,7 +27,7 @@ import java.util.UUID;
  *
  * @author andre
  */
-public interface VocabularyModel {
+public interface VocabularyExerciseModel {
     
     /**
      * 

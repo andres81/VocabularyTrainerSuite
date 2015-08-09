@@ -66,13 +66,10 @@ public class VocabularyXMLApi {
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION, "lesson.xsd");
             SchemaFactory sf = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
             marshaller.setSchema(sf.newSchema(new File("src/main/resources/lesson.xsd")));
-            marshaller.marshal(lesson, System.out);
         } catch (javax.xml.bind.JAXBException ex) {
-            System.err.println("Went something wrong with marshalling the custom xml piece of shit of code: " + ex.getMessage());
-            System.err.println(ex.toString());
-            System.err.println(Arrays.toString(ex.getStackTrace()));
+            ex.printStackTrace(System.err);
         } catch (SAXException ex) {
-            Logger.getLogger(VocabularyXMLApi.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace(System.err);
         }
     }
     

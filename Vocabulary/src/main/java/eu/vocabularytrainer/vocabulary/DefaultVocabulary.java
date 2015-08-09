@@ -55,25 +55,21 @@ public class DefaultVocabulary implements Vocabulary {
     
     /**
      * 
-     * @param fileName
+     * @param file
      * @return 
      */
-    public static Vocabulary createFromXML(String fileName) {
-        System.out.println("start createFromXml");
+    public static Vocabulary createFromXML(File file) {
         Vocabulary voc = new DefaultVocabulary();
         Lesson lesson;
         try {
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
             Schema schema = sf.newSchema(new File("src/main/resources/lesson.xsd")); 
-            File file = new File(fileName);
             JAXBContext jaxbContext = JAXBContext.newInstance(Lesson.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             jaxbUnmarshaller.setSchema(schema);
             lesson = (Lesson) jaxbUnmarshaller.unmarshal(file);
-            System.out.println(lesson);
         } catch (JAXBException | SAXException e) {
-            System.out.println("exception: ");
-            e.printStackTrace();
+            e.printStackTrace(System.err);
             return null;
         }
         
@@ -85,7 +81,6 @@ public class DefaultVocabulary implements Vocabulary {
             }
         }
         if (voctype == null) {
-            System.out.println("voctype = null");
             return null;
         }
         List<VocabularyElementPair> pairs = new ArrayList<>();

@@ -16,11 +16,14 @@
  */
 package eu.vocabularytrainer.mainapplication.interfaces;
 
+import java.io.File;
+
 /**
  *
  * @author Andre Schepers andreschepers81@gmail.com
  */
 public interface MainController {
-    
+
+    public void loadXmlFile(File selectedFile);
     
 }

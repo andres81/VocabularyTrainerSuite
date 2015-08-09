@@ -17,28 +17,22 @@
 package eu.vocabularyexercise.gui;
 
 import eu.vocabularyexercise.domain.DefaultVocabularyController;
-import eu.vocabularyexercise.domain.DefaultVocabularyModel;
+import eu.vocabularyexercise.domain.DefaultVocabularyExerciseModel;
 import eu.vocabularyexercise.domain.interfaces.VocabularyController;
-import eu.vocabularyexercise.domain.interfaces.VocabularyModel;
-import eu.vocabularytrainer.vocabulary.DefaultRepresentative;
+import eu.vocabularyexercise.domain.interfaces.VocabularyExerciseModel;
 import eu.vocabularytrainer.vocabulary.DefaultVocabulary;
-import eu.vocabularytrainer.vocabulary.DefaultVocabularyElementPair;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
-import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.apache.logging.log4j.LogManager;
@@ -56,7 +50,7 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
     /**
      * 
      */
-    private VocabularyModel model = null;
+    private VocabularyExerciseModel model = null;
     
     /**
      * 
@@ -72,25 +66,36 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      * 
      */
     private JLabel queryView = null;
-            
+
     /**
      * 
      */
     public VocabularyExercise() {
         super();
         init();
-        model = new DefaultVocabularyModel();
+        model = new DefaultVocabularyExerciseModel();
         setController(new DefaultVocabularyController(model));
         setModel(model);
     }
     
     /**
      * 
+     * @param file
+     */
+    public VocabularyExercise(File file) {
+        this();
+        Vocabulary voc = DefaultVocabulary.createFromXML(file);
+        model.setVocabularyElementPairs(voc.getPairs());
+    }
+    
+    /**
+     * 
+     * @param file
      * @param model
      * @param controller 
      */
-    public VocabularyExercise(VocabularyModel model, VocabularyController controller) {
-        this();
+    public VocabularyExercise(File file, VocabularyExerciseModel model, VocabularyController controller) {
+        this(file);
         if (model != null) {
             setModel(model);
         }
@@ -118,7 +123,7 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      * 
      * @param model
      */
-    public void setModel(VocabularyModel model) {
+    public void setModel(VocabularyExerciseModel model) {
         if (model == null) {
             throw new NullPointerException("Model can't be null.");
         }
@@ -173,63 +178,18 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      * 
      * @return 
      */
-    public VocabularyModel getModel() {
+    public VocabularyExerciseModel getModel() {
         return model;
     }
     
     /**
      * 
-     * @param args 
+     * @param vocabulary 
      */
-    public static void main(String[] args) {
-        VocabularyExercise exercise = new VocabularyExercise();
-        Vocabulary voc = DefaultVocabulary.createFromXML("src/main/resources/lesson-1.xml");
-        System.err.println(voc.getPairs().size());
-        exercise.getModel().setVocabularyElementPairs(voc.getPairs());
-        JFrame frame = new JFrame();
-        JPanel pane = (JPanel) frame.getContentPane();
-        pane.add(exercise, BorderLayout.CENTER);
-        JPanel options = new JPanel();
-        JButton button = new JButton();
-        button.setText("Andre");
-        button.addActionListener(exercise);
-        options.add(button);
-        pane.add(options, BorderLayout.PAGE_START);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
-        frame.show();
+    public void setVocabulary(Vocabulary vocabulary) {
+        model.setVocabularyElementPairs(vocabulary.getPairs());
     }
     
-    /**
-     * 
-     * @return 
-     */
-    public static List<VocabularyElementPair> getRepresentatives() {
-        List<VocabularyElementPair> pairs = new ArrayList<>();
-        
-        DefaultVocabularyElementPair pair = new DefaultVocabularyElementPair(
-            new DefaultRepresentative("one", null),
-            new DefaultRepresentative("un", null));
-        pairs.add(pair);
-        pair = new DefaultVocabularyElementPair(
-            new DefaultRepresentative("two", null),
-            new DefaultRepresentative("deux", null));
-        pairs.add(pair);
-        pair = new DefaultVocabularyElementPair(
-            new DefaultRepresentative("three", null),
-            new DefaultRepresentative("trois", null));
-        pairs.add(pair);
-        pair = new DefaultVocabularyElementPair(
-            new DefaultRepresentative("four", null),
-            new DefaultRepresentative("quatre", null));
-        pairs.add(pair);
-        pair = new DefaultVocabularyElementPair(
-            new DefaultRepresentative("five", null),
-            new DefaultRepresentative("cinque", null));
-        pairs.add(pair);
-        return pairs;
-    }
-
     @Override
     public void actionPerformed(ActionEvent ae) {
         model.setDirection(Direction.COLUMNTWOTOTWO);

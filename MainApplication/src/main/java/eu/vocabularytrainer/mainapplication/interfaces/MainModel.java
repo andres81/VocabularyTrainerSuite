@@ -17,6 +17,7 @@
 package eu.vocabularytrainer.mainapplication.interfaces;
 
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
+import java.util.Observer;
 
 /**
  *
@@ -42,4 +43,10 @@ public interface MainModel {
      * @param vocabulary
      */
     public void setVocabulary(Vocabulary vocabulary);
+    
+    /**
+     * 
+     * @param o 
+     */
+    public void addObserver(Observer o);
 }

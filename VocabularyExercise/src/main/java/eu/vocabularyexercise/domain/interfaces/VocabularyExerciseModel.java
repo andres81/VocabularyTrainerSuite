@@ -37,6 +37,30 @@ public interface VocabularyExerciseModel {
     
     /**
      * 
+     * @param representation 
+     */
+    public void setQueryRepresentation(Representative.Representation representation);
+    
+    /**
+     * 
+     * @param representation 
+     */
+    public void setOptionsRepresentation(Representative.Representation representation);
+    
+    /**
+     * 
+     * @return 
+     */
+    public Representative.Representation getQueryRepresentation();
+    
+    /**
+     * 
+     * @return 
+     */
+    public Representative.Representation getOptionsRepresentation();
+    
+    /**
+     * 
      * @param pairs 
      */
     public void setVocabularyElementPairs(List<VocabularyElementPair> pairs);

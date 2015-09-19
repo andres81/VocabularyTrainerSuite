@@ -47,6 +47,11 @@ public class DefaultRepresentative implements Representative {
     /**
      * 
      */
+    private String sound = null;
+    
+    /**
+     * 
+     */
     private UUID uuid = null;
     
     /**
@@ -56,6 +61,7 @@ public class DefaultRepresentative implements Representative {
     public DefaultRepresentative() {
         uuid = UUID.randomUUID();
         image = new BufferedImage(20, 20, TYPE_INT_RGB);
+        sound = "";
         title = "TITLE";
     }
     
@@ -63,16 +69,18 @@ public class DefaultRepresentative implements Representative {
      * 
      * @param title
      * @param image 
+     * @param sound 
      */
-    public DefaultRepresentative(String title, Image image) {
+    public DefaultRepresentative(String title, Image image, String sound) {
         this();
-        if (title == null) {
+        if (title == null ||
+            image == null ||
+            sound == null) {
             throw new NullPointerException();
         }
         this.title = title;
-        if (image != null) {
-            this.image = image;
-        }
+        this.image = image;
+        this.sound = sound;
     }
     
     /**
@@ -114,6 +122,22 @@ public class DefaultRepresentative implements Representative {
         this.title = title;
     }
 
+    /**
+     * 
+     */
+    @Override
+    public String getSound() {
+        return sound;
+    }
+    
+    /**
+     * 
+     * @param sound 
+     */
+    public void setSound(String sound) {
+        this.sound = sound;
+    }
+    
     @Override
     public UUID getUuid() {
         return uuid;

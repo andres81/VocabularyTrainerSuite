@@ -16,8 +16,9 @@
  */
 package eu.vocabularyexercise.domain;
  
-import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
  
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -33,15 +34,20 @@ import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 public class AudioFilePlayer {
  
     public static void main(String[] args) {
-        final AudioFilePlayer player = new AudioFilePlayer ();
-        player.playAudioFile("/home/andres81/something.mp3");
-        System.out.println("hello world");
-        player.playAudioFile("/home/andres81/something.ogg");
+        final AudioFilePlayer player = new AudioFilePlayer();
+        player.playAudioFile("http://www.andreschepers.org/apple.mp3");
     }
  
-    public void playAudioFile(String filePath) {
-        File file = new File(filePath);
-        try (AudioInputStream ais = getAudioInputStream(file)) {
+    public void playAudioFile(String urlString) {
+        URL url;
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+            System.out.println("didnt play");
+            return;
+        }
+        try (AudioInputStream ais = getAudioInputStream(url)) {
             AudioFormat audioFormat = getAudioFormat(ais.getFormat());
             Info info = new Info(SourceDataLine.class, audioFormat);
             SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);

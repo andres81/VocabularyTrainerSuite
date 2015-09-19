@@ -21,6 +21,7 @@ import eu.vocabularyexercise.domain.interfaces.VocabularyExerciseModel;
 import eu.vocabularytrainer.vocabulary.DefaultRepresentative;
 import eu.vocabularytrainer.vocabulary.DefaultVocabularyElementPair;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
+import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
 import static eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction.COLUMNONETOONE;
 import static eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction.COLUMNONETOTWO;
@@ -81,8 +82,20 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
     /**
      * 
      */
+    private Representation queryRepresentation = null;
+    
+    /**
+     * 
+     */
+    private Representation optionsRepresentation = null;
+    
+    /**
+     * 
+     */
     public DefaultVocabularyExerciseModel() {
         direction = Direction.COLUMNONETOTWO;
+        optionsRepresentation = Representation.STRING;
+        queryRepresentation = Representation.STRING;
     }
     
     /**
@@ -99,6 +112,46 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
         updateOptions();
         setChanged();
         notifyObservers(UpdateType.DIRECTION);
+    }
+    
+    /**
+     * 
+     * @param representation 
+     */
+    @Override
+    public void setQueryRepresentation(Representation representation) {
+        this.queryRepresentation = representation;
+        setChanged();
+        notifyObservers(UpdateType.QUERYINTERACTIONTYPE);
+    }
+    
+    /**
+     * 
+     * @param representation 
+     */
+    @Override
+    public void setOptionsRepresentation(Representation representation) {
+        this.optionsRepresentation = representation;
+        setChanged();
+        notifyObservers(UpdateType.OPTIONSINTERACTIONTYPE);
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    public Representation getQueryRepresentation() {
+        return queryRepresentation;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    public Representation getOptionsRepresentation() {
+        return optionsRepresentation;
     }
     
     /**
@@ -214,6 +267,7 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
      * 
      */
     private void updateQueryAndQueryOption() {
+        if (activeQueryPair == null) return;
         Representative first = activeQueryPair.getFirst();
         Representative second = activeQueryPair.getSecond();
         switch(direction) {
@@ -257,7 +311,11 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
         setActiveQueryPairNoUpdate(temp.get(newIndex).getUuid());
     }
 
+    /**
+     * 
+     */
     private void updateOptions() {
+        if (pairs == null) return;
         options = new ArrayList<>();
         for(VocabularyElementPair pair : pairs.values()) {
             if (direction == Direction.COLUMNONETOONE ||
@@ -269,6 +327,10 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
         }
     }
     
+    /**
+     * 
+     * @return 
+     */
     @Override
     public List<Representative> getOptions() {
         return options;

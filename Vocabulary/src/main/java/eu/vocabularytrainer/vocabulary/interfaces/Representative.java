@@ -41,6 +41,12 @@ public interface Representative {
      * 
      * @return 
      */
+    public String getSound();
+    
+    /**
+     * 
+     * @return 
+     */
     public UUID getUuid();
     
     /**
@@ -48,6 +54,7 @@ public interface Representative {
      */
     public enum Representation {
        STRING,
-       IMAGE;
+       IMAGE,
+       SOUND;
     }
 }

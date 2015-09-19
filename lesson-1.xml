@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lesson
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="lesson.xsd"
+    id="1" 
+    name="alfabet">
+    
+    <vocabulary>
+        <instructions>
+            <iterations>
+                <iteration index="0">
+                    <query type="image"/>
+                    <options type="text"/>
+                    <columnorder>first-first</columnorder>
+                </iteration>
+                <iteration index="1">
+                    <query type="image"/>
+                    <options type="text"/>
+                    <columnorder>first-second</columnorder>
+                </iteration>
+                <iteration index="2">
+                    <query type="text"/>
+                    <options type="text"/>
+                    <columnorder>second-first</columnorder>
+                </iteration>
+                <iteration index="3">
+                    <query type="text"/>
+                    <options type="text"/>
+                    <columnorder>second-second</columnorder>
+                </iteration>
+            </iterations>
+        </instructions>
+        <pairs>
+            <pair>
+                <first>
+                    <text>banaan</text>
+                    <image>http://andreschepers.org/banana.jpg</image>
+                    <audio>http://andreschepers.org/banana.mp3</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>banana</text>
+                    <image>http://andreschepers.org/banana.jpg</image>
+                    <audio>http://andreschepers.org/banana.mp3</audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>appel</text>
+                    <image>http://andreschepers.org/apple.jpg</image>
+                    <audio>http://andreschepers.org/apple.mp3</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>apple</text>
+                    <image>http://andreschepers.org/apple.jpg</image>
+                    <audio>http://andreschepers.org/apple.mp3</audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>peer</text>
+                    <image>http://andreschepers.org/pear.jpg</image>
+                    <audio>http://andreschepers.org/pear.mp3</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>pear</text>
+                    <image>http://andreschepers.org/pear.jpg</image>
+                    <audio>http://andreschepers.org/pear.mp3</audio>
+                    <video></video>
+                </second>
+            </pair>
+        </pairs>
+    </vocabulary>
+</lesson>

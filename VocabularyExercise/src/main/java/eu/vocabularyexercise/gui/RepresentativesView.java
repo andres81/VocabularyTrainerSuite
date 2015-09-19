@@ -17,6 +17,7 @@
 package eu.vocabularyexercise.gui;
 
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
+import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
 import static eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation.IMAGE;
 import static eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation.STRING;
 import java.awt.Dimension;
@@ -28,6 +29,7 @@ import java.util.Map;
 import java.util.UUID;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import org.apache.logging.log4j.LogManager;
@@ -50,7 +52,7 @@ public class RepresentativesView extends JPanel implements ActionListener {
     /**
      * 
      */
-    private Representative.Representation representation = null;
+    private Representation representation = null;
     
     /**
      * 
@@ -85,7 +87,7 @@ public class RepresentativesView extends JPanel implements ActionListener {
      * 
      * @param representatives 
      */
-    public void setRepresentatives(List<? extends Representative> representatives) {
+    public void setRepresentatives(List<Representative> representatives) {
         this.representatives = representatives;
         initGui();
     }
@@ -98,31 +100,40 @@ public class RepresentativesView extends JPanel implements ActionListener {
         if (buttonMapper == null) {
             buttonMapper = new HashMap<>();
         }
-        if (representatives != null) {
-            for (Representative rep : representatives) {
-                JButton button = new JButton();
-                button.setAlignmentX(CENTER_ALIGNMENT);
-                switch (representation) {
-                    case IMAGE:
-                        break;
-                    case STRING:
-                        button.setText(rep.getTitle());
-                        break;
-                    default:
-                        break;
-                }
-                add(button);
-                add(Box.createRigidArea(new Dimension(10, 10)));
-                buttonMapper.put(button,rep.getUuid());
-                button.addActionListener(this);
+        if (representatives == null) return;
+        for (Representative rep : representatives) {
+            JButton button = new JButton();
+            button.setAlignmentX(CENTER_ALIGNMENT);
+            switch (representation) {
+                case IMAGE:
+                    button.setIcon(new ImageIcon(rep.getImage()));
+                    break;
+                case STRING:
+                    button.setText(rep.getTitle());
+                    break;
+                default:
+                    break;
             }
+            add(button);
+            add(Box.createRigidArea(new Dimension(10, 10)));
+            buttonMapper.put(button,rep.getUuid());
+            button.addActionListener(this);
         }
         revalidate();
+    }
+    
+    /**
+     * 
+     * @param representation 
+     */
+    public void setRepresentation(Representation representation) {
+        this.representation = representation;
+        initGui();
     }
 
     /**
      * 
-     * @param e 
+     * @param e
      */
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -22,10 +22,17 @@ import java.util.ArrayList;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
 import generated.Lesson;
+import generated.Pairelemtype;
 import generated.Pairtype;
 import generated.Vocabularytype;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -86,8 +93,10 @@ public class DefaultVocabulary implements Vocabulary {
         List<VocabularyElementPair> pairs = new ArrayList<>();
         VocabularyElementPair pair;
         for (Pairtype pt : voctype.getPairs().getPair()) {
-            Representative first = new DefaultRepresentative(pt.getFirst().getText(), null);
-            Representative second = new DefaultRepresentative(pt.getSecond().getText(), null);
+            Pairelemtype pet1 = pt.getFirst();
+            Pairelemtype pet2 = pt.getSecond();
+            Representative first = new DefaultRepresentative(pet1.getText(), getImageFromUrlString(pet1.getImage()), pet1.getAudio());
+            Representative second = new DefaultRepresentative(pet2.getText(), getImageFromUrlString(pet2.getImage()), pet2.getAudio());
             pair = new DefaultVocabularyElementPair(first, second);
             pairs.add(pair);
         }
@@ -128,5 +137,64 @@ public class DefaultVocabulary implements Vocabulary {
             pairs = new ArrayList<>();
         }
         pairs.add(pair);
+    }
+
+    /**
+     * 
+     * @param imageUrlString
+     * @return 
+     */
+    public static Image getImageFromUrlString(String imageUrlString) {
+        URL url = null;
+        try {
+            url = new URL(imageUrlString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return getImageFromUrl(url);
+    }
+    
+    /**
+     * 
+     * @param imageUrl
+     * @return 
+     */
+    public static Image getImageFromUrl(URL imageUrl) {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(imageUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int type = image.getType() == 0? BufferedImage.TYPE_INT_ARGB : image.getType();
+
+        return resizeImage(image, type);
+    }
+    
+    /**
+     * 
+     * @param originalImage
+     * @param type
+     * @return 
+     */
+   private static BufferedImage resizeImage(BufferedImage originalImage, int type){
+        
+        double orgHeight = originalImage.getHeight();
+        double orgWidth = originalImage.getWidth();
+        double ar = orgWidth / orgHeight;
+        int width = (int)(100.0 * ar);
+        
+	BufferedImage resizedImage = new BufferedImage(width, 100, type);
+	Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(originalImage,
+                    // Area to draw on
+                    0, 0, width, 100,
+                    // part of the original image we take, full of course.
+                    0, 0, originalImage.getWidth(), originalImage.getHeight(),
+                    // Optional observer that is called when image is fully drawn.
+                    null);
+	g.dispose();
+
+	return resizedImage;
     }
 }

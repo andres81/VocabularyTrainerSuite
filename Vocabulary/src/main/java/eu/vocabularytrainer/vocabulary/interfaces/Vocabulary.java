@@ -42,7 +42,8 @@ public interface Vocabulary {
        ACTIVEPAIRS,
        DIRECTION,
        ACTIVEPAIR,
-       INTERACTIONTYPE;
+       QUERYINTERACTIONTYPE,
+       OPTIONSINTERACTIONTYPE;
     };
     
     /**

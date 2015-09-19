@@ -47,7 +47,7 @@ public class MainWindow extends JFrame implements Observer {
      */
     public MainWindow() {
         model = new DefaultMainModel();
-        ((DefaultMainModel) model).addObserver(this);
+        model.addObserver(this);
         setJMenuBar(new MenuBar(new DefaultMainController(model)));
         getContentPane().add(getVocabularyExercise(), BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

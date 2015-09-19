@@ -90,12 +90,6 @@ public interface VocabularyExerciseModel {
     
     /**
      * 
-     * @param uuid 
-     */
-    public void setActiveQueryPair(UUID uuid);
-    
-    /**
-     * 
      * @return 
      */
     public VocabularyElementPair getActiveQueryPair();
@@ -111,4 +105,14 @@ public interface VocabularyExerciseModel {
      * @return 
      */
     public List<Representative> getOptions();
+    
+    /**
+     * 
+     */
+    public void shiftToPreviousPairs();
+
+    /**
+     * 
+     */
+    public void shiftToNextPairs();
 }

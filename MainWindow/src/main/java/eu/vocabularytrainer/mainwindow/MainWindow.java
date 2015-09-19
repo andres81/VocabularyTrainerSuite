@@ -92,7 +92,6 @@ public class MainWindow extends JFrame implements Observer {
                     break;
             }
             revalidate();
-//            pack();
         }
     }
 }

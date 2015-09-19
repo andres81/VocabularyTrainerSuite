@@ -30,7 +30,8 @@ import static eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction.CO
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.UpdateType;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -52,7 +53,12 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
     /**
      * 
      */
-    private Map<UUID,VocabularyElementPair> pairs = null;
+    private Map<UUID,VocabularyElementPair> activePairs = null;
+    
+    /**
+     * 
+     */
+    private Map<UUID,VocabularyElementPair> vocabularyPairs = null;
     
     /**
      * 
@@ -88,6 +94,16 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
      * 
      */
     private Representation optionsRepresentation = null;
+    
+    /**
+     * 
+     */
+    private int pairStartIndex = 1;
+    
+    /**
+     * 
+     */
+    private int pairEndIndex = 1;
     
     /**
      * 
@@ -163,13 +179,64 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
         if (pairs == null) {
             throw new NullPointerException();
         }
-        if (this.pairs == null) {
-            this.pairs = new HashMap<>();
+        if (this.vocabularyPairs == null) {
+            this.vocabularyPairs = new LinkedHashMap<>();
         }
-        this.pairs.clear();
+        this.vocabularyPairs.clear();
         for (VocabularyElementPair pair : pairs) {
-            this.pairs.put(pair.getUuid(), pair);
+            this.vocabularyPairs.put(pair.getUuid(), pair);
         }
+        if (vocabularyPairs.size() < 1) return;
+        pairStartIndex = 0;
+        updateActivePairs();
+        updateOptions();
+        setRandomActiveQueryPair();
+        setChanged();
+        notifyObservers(UpdateType.PAIRS);
+    }
+    
+    /**
+     * 
+     */
+    private void updateActivePairs() {
+        if (vocabularyPairs == null) return;
+        if (activePairs == null) {
+            activePairs = new LinkedHashMap<>();
+        }
+        pairEndIndex = pairStartIndex + 4;
+        int size = vocabularyPairs.size();
+        pairEndIndex = (pairEndIndex < size) ? pairEndIndex : (size - 1);
+        activePairs.clear();
+        LinkedList<UUID> keys = new LinkedList<>(vocabularyPairs.keySet());
+        for (int i = pairStartIndex;i<=pairEndIndex;i++) {
+            activePairs.put(keys.get(i), vocabularyPairs.get(keys.get(i)));
+        }
+    }
+    
+    /**
+     * 
+     */
+    @Override
+    public void shiftToPreviousPairs() {
+        if (pairStartIndex == 0) return;
+        pairStartIndex = pairStartIndex - 5;
+        if (pairStartIndex < 0) pairStartIndex = 0;
+        pairEndIndex = pairStartIndex + 4;
+        updateActivePairs();
+        updateOptions();
+        setRandomActiveQueryPair();
+        setChanged();
+        notifyObservers(UpdateType.PAIRS);
+    }
+    
+    /**
+     * 
+     */
+    @Override
+    public void shiftToNextPairs() {
+        if (pairEndIndex == vocabularyPairs.size() - 1) return;
+        pairStartIndex = pairEndIndex + 1;
+        updateActivePairs();
         updateOptions();
         setRandomActiveQueryPair();
         setChanged();
@@ -182,7 +249,7 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
      */
     @Override
     public List<VocabularyElementPair> getVocabularyElementPairs() {
-        return new ArrayList<>(pairs.values());
+        return new ArrayList<>(activePairs.values());
     }
     
     /**
@@ -221,15 +288,6 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
     
     /**
      * 
-     * @param uuid 
-     */
-    @Override
-    public void setActiveQueryPair(UUID uuid) {
-        setActiveQueryPairNoUpdate(uuid);
-    }
-    
-    /**
-     * 
      * @return 
      */
     @Override
@@ -257,7 +315,7 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
         if (uuid == null) {
             throw new NullPointerException();
         }
-        VocabularyElementPair pair = pairs.get(uuid);
+        VocabularyElementPair pair = activePairs.get(uuid);
         if (pair == null) return; // No pair found with given uuid!
         activeQueryPair = pair;
         updateQueryAndQueryOption();
@@ -294,14 +352,14 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
      * Set a new random active query pair.
      */
     private void setRandomActiveQueryPairNoUpdate() {
-        if (pairs == null ||
-            pairs.isEmpty()) {
+        if (activePairs == null ||
+            activePairs.isEmpty()) {
             activeQueryPair = null;
             activeQuery = null;
             activeQueryOption = null;
             return;
         }
-        List<VocabularyElementPair> temp = new ArrayList<>(pairs.values());
+        List<VocabularyElementPair> temp = new ArrayList<>(activePairs.values());
         if (activeQueryPair != null &&
             temp.size() > 1) {
             temp.remove(activeQueryPair);
@@ -315,9 +373,9 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
      * 
      */
     private void updateOptions() {
-        if (pairs == null) return;
+        if (activePairs == null) return;
         options = new ArrayList<>();
-        for(VocabularyElementPair pair : pairs.values()) {
+        for(VocabularyElementPair pair : activePairs.values()) {
             if (direction == Direction.COLUMNONETOONE ||
                 direction == Direction.COLUMNTWOTOONE) {
                 options.add(pair.getFirst());

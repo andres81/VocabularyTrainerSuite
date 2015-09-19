@@ -25,7 +25,6 @@ import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.UpdateType;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,15 +32,12 @@ import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.border.Border;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -192,6 +188,17 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
         group3.add(button9);
         group3.add(button10);
         
+        
+        JButton nextButton = new JButton("next");
+        nextButton.addActionListener(this);
+        JButton backButton = new JButton("back");
+        backButton.addActionListener(this);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.add(backButton);
+        buttonPanel.add(nextButton);
+        add(buttonPanel);
+        
         queryView = new QueryView();
         add(Box.createRigidArea(new Dimension(50, 50)));
         add(queryView);
@@ -291,6 +298,15 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
     
     @Override
     public void actionPerformed(ActionEvent ae) {
+        if(ae.getSource() instanceof JButton) {
+            JButton button = (JButton)ae.getSource();
+            if (button.getText().equals("next")) {
+                model.shiftToNextPairs();
+            } else {
+                model.shiftToPreviousPairs();
+            }
+            return;
+        }
         try {
             model.setDirection(Direction.valueOf(ae.getActionCommand()));
             return;

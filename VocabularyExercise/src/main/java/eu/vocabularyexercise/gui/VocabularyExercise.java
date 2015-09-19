@@ -34,7 +34,6 @@ import java.util.Observer;
 import java.util.UUID;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -113,81 +112,6 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
     private void init() {
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(layout);
-        
-        JRadioButton button1 = new JRadioButton("ONE-ONE");
-        button1.setAlignmentX(CENTER_ALIGNMENT);
-        button1.addActionListener(this);
-        button1.setActionCommand(Direction.COLUMNONETOONE.toString());
-        JRadioButton button2 = new JRadioButton("ONE-TWO");
-        button2.setAlignmentX(CENTER_ALIGNMENT);
-        button2.addActionListener(this);
-        button2.setActionCommand(Direction.COLUMNONETOTWO.toString());
-        JRadioButton button3 = new JRadioButton("TWO-ONE");
-        button3.setAlignmentX(CENTER_ALIGNMENT);
-        button3.addActionListener(this);
-        button3.setActionCommand(Direction.COLUMNTWOTOONE.toString());
-        JRadioButton button4 = new JRadioButton("TWO-TWO");
-        button4.setAlignmentX(CENTER_ALIGNMENT);
-        button4.addActionListener(this);
-        button4.setActionCommand(Direction.COLUMNTWOTOTWO.toString());
-        
-        add(button1);
-        add(button2);
-        add(button3);
-        add(button4);
-                
-        //Group the radio buttons.
-        ButtonGroup group = new ButtonGroup();
-        group.add(button1);
-        group.add(button2);
-        group.add(button3);
-        group.add(button4);
-        
-        JRadioButton button5 = new JRadioButton("STRING");
-        button5.setAlignmentX(CENTER_ALIGNMENT);
-        button5.addActionListener(this);
-        button5.setActionCommand(Representation.STRING.toString());
-        JRadioButton button6 = new JRadioButton("SOUND");
-        button6.setAlignmentX(CENTER_ALIGNMENT);
-        button6.addActionListener(this);
-        button6.setActionCommand(Representation.SOUND.toString());
-        JRadioButton button7 = new JRadioButton("IMAGE");
-        button7.setAlignmentX(CENTER_ALIGNMENT);
-        button7.addActionListener(this);
-        button7.setActionCommand(Representation.IMAGE.toString());
-        
-        JRadioButton button8 = new JRadioButton("STRINGOPTION");
-        button8.setAlignmentX(CENTER_ALIGNMENT);
-        button8.addActionListener(this);
-        button8.setActionCommand(Representation.STRING.toString());
-        JRadioButton button9 = new JRadioButton("SOUNDOPTION");
-        button9.setAlignmentX(CENTER_ALIGNMENT);
-        button9.addActionListener(this);
-        button9.setActionCommand(Representation.SOUND.toString());
-        JRadioButton button10 = new JRadioButton("IMAGEOPTION");
-        button10.setAlignmentX(CENTER_ALIGNMENT);
-        button10.addActionListener(this);
-        button10.setActionCommand(Representation.IMAGE.toString());
-        
-        add(button5);
-        add(button6);
-        add(button7);
-        add(button8);
-        add(button9);
-        add(button10);
-                
-        //Group the radio buttons.
-        ButtonGroup group2 = new ButtonGroup();
-        group2.add(button5);
-        group2.add(button6);
-        group2.add(button7);
-        
-        //Group the radio buttons.
-        ButtonGroup group3 = new ButtonGroup();
-        group3.add(button8);
-        group3.add(button9);
-        group3.add(button10);
-        
         
         JButton nextButton = new JButton("next");
         nextButton.addActionListener(this);
@@ -269,7 +193,6 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      */
     private void updateVocabularyEntryPairs() {
         representativesView.setRepresentatives(model.getOptions());
-        // updateActivePair();
         queryView.setText(model.getActiveQuery().getTitle());
     }
             

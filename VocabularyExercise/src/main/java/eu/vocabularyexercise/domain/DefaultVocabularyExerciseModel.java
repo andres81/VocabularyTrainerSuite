@@ -205,6 +205,8 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
         direction = iteration.getColumnOrder();
         queryRepresentation = iteration.getQueryType();
         optionsRepresentation = iteration.getOptionType();
+        setChanged();
+        notifyObservers(UpdateType.QUERYINTERACTIONTYPE);
     }
     
     /**
@@ -249,13 +251,19 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
      */
     @Override
     public void shiftToPreviousPairs() {
-        if (pairStartIndex == 0) return;
-        pairStartIndex = pairStartIndex - 5;
-        if (pairStartIndex < 0) pairStartIndex = 0;
-        pairEndIndex = pairStartIndex + 4;
+        if (pairStartIndex == 0) {
+            if (iterationIndex == 0) return;
+            iterationIndex = iterationIndex - 1;
+            initIteration();
+            pairStartIndex = vocabularyPairs.size() - (vocabularyPairs.size() % 5);
+        } else {
+            pairStartIndex = pairStartIndex - 5;
+            if (pairStartIndex < 0) pairStartIndex = 0;
+            pairEndIndex = pairStartIndex + 4;
+        }
         updateActivePairs();
         updateOptions();
-        setRandomActiveQueryPair();
+        setRandomActiveQueryPairNoUpdate();
         setChanged();
         notifyObservers(UpdateType.PAIRS);
     }
@@ -276,7 +284,7 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
         }
         updateActivePairs();
         updateOptions();
-        setRandomActiveQueryPair();
+        setRandomActiveQueryPairNoUpdate();
         setChanged();
         notifyObservers(UpdateType.PAIRS);
     }

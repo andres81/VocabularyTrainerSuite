@@ -16,11 +16,13 @@
  */
 package eu.vocabularytrainer.vocabulary;
 
+import eu.vocabularytrainer.vocabulary.interfaces.Iteration;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
 import java.util.List;
 import java.util.ArrayList;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
+import generated.Iterationtype;
 import generated.Lesson;
 import generated.Pairelemtype;
 import generated.Pairtype;
@@ -53,6 +55,11 @@ public class DefaultVocabulary implements Vocabulary {
      * 
      */
     private List<VocabularyElementPair> pairs;
+    
+    /**
+     * 
+     */
+    private List<Iteration> iterations;
     
     /**
      * 
@@ -101,7 +108,24 @@ public class DefaultVocabulary implements Vocabulary {
             pairs.add(pair);
         }
         voc.setPairs(pairs);
+        
+        List<Iteration> iterations = new ArrayList<>();
+        for (Iterationtype type : voctype.getInstructions().getIterations().getIteration()) {
+            Iteration iteration = new DefaultIterationImpl();
+            iteration.setIndex(type.getIndex());
+            iteration.setColumnOrder(type.getColumnorder());
+            iteration.setOptionType(type.getOptions().getType());
+            iteration.setQueryType(type.getQuery().getType());
+            iterations.add(iteration);
+        }
+        voc.setIterations(iterations);
+        
         return voc;
+    }
+    
+    public static void main(String[] args) {
+        Vocabulary voc = createFromXML(new File("/home/andres81/inputfiles/lesson-1.xml"));
+        System.out.println(voc.getIterations().get(0).toString());
     }
     
     /**
@@ -196,5 +220,23 @@ public class DefaultVocabulary implements Vocabulary {
 	g.dispose();
 
 	return resizedImage;
+    }
+
+    /**
+     * 
+     * @param iterations 
+     */
+    @Override
+    public void setIterations(List<Iteration> iterations) {
+        this.iterations = iterations;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    public List<Iteration> getIterations() {
+        return iterations;
     }
 }

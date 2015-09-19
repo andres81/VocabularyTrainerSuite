@@ -17,11 +17,11 @@
 package eu.vocabularyexercise.domain.interfaces;
 
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
+import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
 import java.util.List;
 import java.util.Observer;
-import java.util.UUID;
 
 /**
  *
@@ -61,9 +61,9 @@ public interface VocabularyExerciseModel {
     
     /**
      * 
-     * @param pairs 
+     * @param vocabulary 
      */
-    public void setVocabularyElementPairs(List<VocabularyElementPair> pairs);
+    public void setVocabulary(Vocabulary vocabulary);
     
     /**
      * 
@@ -115,4 +115,5 @@ public interface VocabularyExerciseModel {
      * 
      */
     public void shiftToNextPairs();
+
 }

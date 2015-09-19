@@ -88,7 +88,7 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
     public VocabularyExercise(File file) {
         this();
         Vocabulary voc = DefaultVocabulary.createFromXML(file);
-        model.setVocabularyElementPairs(voc.getPairs());
+        model.setVocabulary(voc);
     }
     
     /**
@@ -249,6 +249,8 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
                 case PAIRS:
                     representativesView.setRepresentatives(model.getOptions());
                     queryView.setRepresentative(model.getActiveQuery());
+                    representativesView.setRepresentation(model.getOptionsRepresentation());
+                    queryView.setRepresentation(model.getQueryRepresentation());
                     break;
                 case ACTIVEPAIR:
                     queryView.setRepresentative(model.getActiveQuery());
@@ -293,7 +295,7 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      * @param vocabulary 
      */
     public void setVocabulary(Vocabulary vocabulary) {
-        model.setVocabularyElementPairs(vocabulary.getPairs());
+        model.setVocabulary(vocabulary);
     }
     
     @Override

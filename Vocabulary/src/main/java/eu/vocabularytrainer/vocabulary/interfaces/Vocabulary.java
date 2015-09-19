@@ -23,7 +23,7 @@ import java.util.List;
  * @author Andre Schepers andreschepers81@gmail.com
  */
 public interface Vocabulary {
-    
+
     /**
      * 
      */
@@ -57,4 +57,17 @@ public interface Vocabulary {
      * @return 
      */
     public List<VocabularyElementPair> getPairs();
+
+    /**
+     * 
+     * @param iterations 
+     */
+    public void setIterations(List<Iteration> iterations);
+    
+    /**
+     * 
+     * @return 
+     */
+    public List<Iteration> getIterations();
+    
 }

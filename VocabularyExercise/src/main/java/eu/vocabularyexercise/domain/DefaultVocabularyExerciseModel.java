@@ -20,8 +20,10 @@ package eu.vocabularyexercise.domain;
 import eu.vocabularyexercise.domain.interfaces.VocabularyExerciseModel;
 import eu.vocabularytrainer.vocabulary.DefaultRepresentative;
 import eu.vocabularytrainer.vocabulary.DefaultVocabularyElementPair;
+import eu.vocabularytrainer.vocabulary.interfaces.Iteration;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
+import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
 import static eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction.COLUMNONETOONE;
 import static eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction.COLUMNONETOTWO;
@@ -30,6 +32,8 @@ import static eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction.CO
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.UpdateType;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -108,6 +112,12 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
     /**
      * 
      */
+    private List<Iteration> iterations = null;
+    private int iterationIndex;
+    
+    /**
+     * 
+     */
     public DefaultVocabularyExerciseModel() {
         direction = Direction.COLUMNONETOTWO;
         optionsRepresentation = Representation.STRING;
@@ -172,10 +182,36 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
     
     /**
      * 
-     * @param pairs
+     * @param vocabulary 
      */
     @Override
-    public void setVocabularyElementPairs(List<VocabularyElementPair> pairs) {
+    public void setVocabulary(Vocabulary vocabulary) {
+        setVocabularyElementPairs(vocabulary.getPairs());
+        setIterations(vocabulary.getIterations());
+        iterationIndex = 0;
+        initIteration();
+        updateActivePairs();
+        updateOptions();
+        setRandomActiveQueryPair();
+        setChanged();
+        notifyObservers(UpdateType.PAIRS);
+    }
+    
+    /**
+     * 
+     */
+    private void initIteration() {
+        Iteration iteration = iterations.get(iterationIndex);
+        direction = iteration.getColumnOrder();
+        queryRepresentation = iteration.getQueryType();
+        optionsRepresentation = iteration.getOptionType();
+    }
+    
+    /**
+     * 
+     * @param pairs
+     */
+    private void setVocabularyElementPairs(List<VocabularyElementPair> pairs) {
         if (pairs == null) {
             throw new NullPointerException();
         }
@@ -188,11 +224,6 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
         }
         if (vocabularyPairs.size() < 1) return;
         pairStartIndex = 0;
-        updateActivePairs();
-        updateOptions();
-        setRandomActiveQueryPair();
-        setChanged();
-        notifyObservers(UpdateType.PAIRS);
     }
     
     /**
@@ -234,8 +265,15 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
      */
     @Override
     public void shiftToNextPairs() {
-        if (pairEndIndex == vocabularyPairs.size() - 1) return;
-        pairStartIndex = pairEndIndex + 1;
+        if (pairEndIndex == vocabularyPairs.size() - 1) {
+            // Next iteration
+            if (iterationIndex == iterations.size() - 1) return;
+            iterationIndex = iterationIndex + 1;
+            initIteration();
+            pairStartIndex = 0;
+        } else {
+            pairStartIndex = pairEndIndex + 1;
+        }
         updateActivePairs();
         updateOptions();
         setRandomActiveQueryPair();
@@ -392,5 +430,24 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
     @Override
     public List<Representative> getOptions() {
         return options;
+    }
+
+    /**
+     * 
+     * @param iterations 
+     */
+    private void setIterations(List<Iteration> iterations) {
+        this.iterations = iterations;
+        Collections.sort(this.iterations, new Comparator<Iteration>() {
+
+            @Override
+            public int compare(Iteration t, Iteration t1) {
+                int ti1 = t.getIndex();
+                int ti2 = t.getIndex();
+                if (ti1 < ti2) return -1;
+                if (ti1 == ti2) return 0;
+                return 1;
+            }
+        });
     }
 }

@@ -23,8 +23,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -83,12 +81,37 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         return menuItem;
     }
     
+    /**
+     * 
+     * @return 
+     */
     private JMenu getLoadRusLessons() {
-        JMenuItem menuItem = new JMenuItem("rus-lesson1-alfabet");
-        menuItem.setActionCommand(LOAD_LOCAL_LESSON_XML);
-        menuItem.addActionListener(this);
+        JMenuItem menuItem1 = new JMenuItem("rus-lesson1-alfabet");
+        menuItem1.setActionCommand(LOAD_LOCAL_LESSON_XML);
+        menuItem1.addActionListener(this);
+        
+        JMenuItem menuItem2 = new JMenuItem("rus-lesson2-alfabet");
+        menuItem2.setActionCommand(LOAD_LOCAL_LESSON_XML);
+        menuItem2.addActionListener(this);
+        
+        JMenuItem menuItem3 = new JMenuItem("rus-lesson3-alfabet");
+        menuItem3.setActionCommand(LOAD_LOCAL_LESSON_XML);
+        menuItem3.addActionListener(this);
+        
+        JMenuItem menuItem4 = new JMenuItem("rus-lesson4-alfabet");
+        menuItem4.setActionCommand(LOAD_LOCAL_LESSON_XML);
+        menuItem4.addActionListener(this);
+        
+        JMenuItem menuItem5 = new JMenuItem("rus-lesson5-alfabet");
+        menuItem5.setActionCommand(LOAD_LOCAL_LESSON_XML);
+        menuItem5.addActionListener(this);
+
         JMenu subMenu = new JMenu("Russian lessons");
-        subMenu.add(menuItem);
+        subMenu.add(menuItem1);
+        subMenu.add(menuItem2);
+        subMenu.add(menuItem3);
+        subMenu.add(menuItem4);
+        subMenu.add(menuItem5);
         return subMenu;
     }
     

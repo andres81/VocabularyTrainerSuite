@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * VocabularyTrainer Copyright (C) 2015 André Schepers andreschepers81@gmail.com
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see \<http://www.gnu.org/licenses/>.
+ * -->
+
+
+<lesson
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='file:/home/andres81/swdev/VocabularyTrainerSuite/MainWindow/src/main/resources/lesson.xsd'
+    id="1" 
+    name="alfabet">
+    <vocabulary>
+        <instructions>
+            <iterations>
+                <iteration index="0">
+                    <query type="text"></query>
+                    <options type="text"></options>
+                    <columnorder>first-second</columnorder>
+                </iteration>
+            </iterations>
+        </instructions>
+        <pairs>
+            <pair>
+                <first>
+                    <text>?, Б, В, Г, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_a.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>А - а</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, ?, В, Г, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_b.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Б - б</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, ?, Г, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_v.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>В - в</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, ?, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_g.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Г - г</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, Г, ?</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_d.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Д - д</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, Г, ?</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_d.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Д - д</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, ?, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_g.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Г - г</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, ?, Г, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_v.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>В - в</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, ?, В, Г, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_b.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Б - б</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>?, Б, В, Г, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_a.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>А - а</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            
+            
+            
+            
+            <pair>
+                <first>
+                    <text>А, Б, ?, Г, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_v.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>В - в</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, Г, ?</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_d.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Д - д</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>?, Б, В, Г, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_a.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>А - а</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, ?, В, Г, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_b.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Б - б</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, ?, Д</text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_g.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Г - г</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            
+            
+            
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_je.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Е - е</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_jo.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Ё - ё</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_zje.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Ж - ж</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_ze.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>З - з</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_i.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>И - и</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_j.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Й - й</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_k.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>К - к</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_l.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Л - л</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_m.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>М - м</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_n.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Н - н</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_o.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>О - о</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_p.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>П - п</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_r.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Р - р</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_s.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>С - с</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_t.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Т - т</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_y.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>У - у</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_f.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Ф - ф</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_cha.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Х - х</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_tse.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Ц - ц</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_tsje.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Ч - ч</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_sja.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Ш - ш</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_sja2.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Щ - щ</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_hardsign.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Ъ - ъ</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_bi.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Ы - ы</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_softsign.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Ь - ь</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_3.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Э - э</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_joe.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Ю - ю</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://www.andreschepers.org/rus_ja.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>Я - я</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+        </pairs>
+    </vocabulary>
+</lesson>

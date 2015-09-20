@@ -73,12 +73,7 @@ public class DefaultRepresentative implements Representative {
      */
     public DefaultRepresentative(String title, Image image, String sound) {
         this();
-        if (title == null ||
-            image == null ||
-            sound == null) {
-            throw new NullPointerException();
-        }
-        this.title = title;
+        this.title = title == null ? "title" : title;
         this.image = image;
         this.sound = sound;
     }
@@ -96,9 +91,6 @@ public class DefaultRepresentative implements Representative {
      * @param image 
      */
     public void setImage(Image image) {
-        if (image == null) {
-            throw new NullPointerException("Null given for image parameter!");
-        }
         this.image = image;
     }
     
@@ -116,10 +108,7 @@ public class DefaultRepresentative implements Representative {
      * @param title 
      */
     public void setTitle(String title) {
-        if (title == null) {
-            throw new NullPointerException("");
-        }
-        this.title = title;
+        this.title = title == null ? "title" : "title";
     }
 
     /**
@@ -134,6 +123,7 @@ public class DefaultRepresentative implements Representative {
      * 
      * @param sound 
      */
+    @Override
     public void setSound(String sound) {
         this.sound = sound;
     }

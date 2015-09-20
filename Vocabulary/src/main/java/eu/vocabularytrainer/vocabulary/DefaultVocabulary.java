@@ -74,6 +74,21 @@ public class DefaultVocabulary implements Vocabulary {
      */
     public static Vocabulary createFromXML(File file) {
         Vocabulary voc = new DefaultVocabulary();
+        Vocabularytype voctype = getVocabularyType(getLesson(file));
+        if (voctype == null) {
+            return null;
+        }
+        voc.setPairs(getPairs(voctype));
+        voc.setIterations(getIterations(voctype));
+        return voc;
+    }
+
+    /**
+     * 
+     * @param file
+     * @return 
+     */
+    private static Lesson getLesson(File file) {
         Lesson lesson;
         try {
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
@@ -83,10 +98,18 @@ public class DefaultVocabulary implements Vocabulary {
             jaxbUnmarshaller.setSchema(schema);
             lesson = (Lesson) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException | SAXException e) {
-            e.printStackTrace(System.err);
-            return null;
+            System.err.println("Could not load lesson from xml!");
+            return null; // TODO throw exception to be handled up the line.
         }
-        
+        return lesson;
+    }
+    
+    /**
+     * 
+     * @param lesson
+     * @return 
+     */
+    private static Vocabularytype getVocabularyType(Lesson lesson) {
         Vocabularytype voctype = null;
         for (Serializable ser : lesson.getContent()) {
             if (ser instanceof JAXBElement) {
@@ -94,38 +117,72 @@ public class DefaultVocabulary implements Vocabulary {
                 break;
             }
         }
-        if (voctype == null) {
-            return null;
-        }
-        List<VocabularyElementPair> pairs = new ArrayList<>();
-        VocabularyElementPair pair;
-        for (Pairtype pt : voctype.getPairs().getPair()) {
-            Pairelemtype pet1 = pt.getFirst();
-            Pairelemtype pet2 = pt.getSecond();
-            Representative first = new DefaultRepresentative(pet1.getText(), getImageFromUrlString(pet1.getImage()), pet1.getAudio());
-            Representative second = new DefaultRepresentative(pet2.getText(), getImageFromUrlString(pet2.getImage()), pet2.getAudio());
-            pair = new DefaultVocabularyElementPair(first, second);
-            pairs.add(pair);
-        }
-        voc.setPairs(pairs);
-        
-        List<Iteration> iterations = new ArrayList<>();
-        for (Iterationtype type : voctype.getInstructions().getIterations().getIteration()) {
-            Iteration iteration = new DefaultIterationImpl();
-            iteration.setIndex(type.getIndex());
-            iteration.setColumnOrder(type.getColumnorder());
-            iteration.setOptionType(type.getOptions().getType());
-            iteration.setQueryType(type.getQuery().getType());
-            iterations.add(iteration);
-        }
-        voc.setIterations(iterations);
-        
-        return voc;
+        return voctype;
     }
     
-    public static void main(String[] args) {
-        Vocabulary voc = createFromXML(new File("/home/andres81/inputfiles/lesson-1.xml"));
-        System.out.println(voc.getIterations().get(0).toString());
+    /**
+     * 
+     * @param voctype
+     * @return 
+     */
+    private static List<Iteration> getIterations(Vocabularytype voctype) {
+        List<Iteration> iterations = new ArrayList<>();
+        for (Iterationtype type : voctype.getInstructions().getIterations().getIteration()) {
+            iterations.add(getIteration(type));
+        }
+        return iterations;
+    }
+    
+    /**
+     * 
+     * @param type
+     * @return 
+     */
+    private static Iteration getIteration(Iterationtype type) {
+        Iteration iteration = new DefaultIterationImpl();
+        iteration.setIndex(type.getIndex());
+        iteration.setColumnOrder(type.getColumnorder());
+        iteration.setOptionType(type.getOptions().getType());
+        iteration.setQueryType(type.getQuery().getType());
+        return iteration;
+    }
+    
+    /**
+     * 
+     * @param voctype
+     * @return 
+     */
+    private static List<VocabularyElementPair> getPairs(Vocabularytype voctype) {
+        List<VocabularyElementPair> pairs = new ArrayList<>();
+        for (Pairtype pt : voctype.getPairs().getPair()) {
+            pairs.add(getPair(pt));
+        }
+        return pairs;
+    }
+    
+    /**
+     * 
+     * @param pt
+     * @return 
+     */
+    private static VocabularyElementPair getPair(Pairtype pt) {
+        
+        Pairelemtype pet1 = pt.getFirst();
+        Pairelemtype pet2 = pt.getSecond();
+        
+        Representative first = 
+                new DefaultRepresentative(
+                        pet1.getText(),
+                        getImageFromUrlString(pet1.getImage()),
+                        pet1.getAudio());
+        
+        Representative second =
+                new DefaultRepresentative(
+                        pet2.getText(),
+                        getImageFromUrlString(pet2.getImage()),
+                        pet2.getAudio());
+        
+        return new DefaultVocabularyElementPair(first, second);
     }
     
     /**
@@ -169,11 +226,12 @@ public class DefaultVocabulary implements Vocabulary {
      * @return 
      */
     public static Image getImageFromUrlString(String imageUrlString) {
-        URL url = null;
+        URL url;
         try {
             url = new URL(imageUrlString);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Could not form url from given image url.");
+            return null;
         }
         return getImageFromUrl(url);
     }
@@ -184,11 +242,12 @@ public class DefaultVocabulary implements Vocabulary {
      * @return 
      */
     public static Image getImageFromUrl(URL imageUrl) {
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             image = ImageIO.read(imageUrl);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IllegalArgumentException | IOException ex) {
+            System.err.println("Could not load image from url: " + imageUrl);
+            return null;
         }
         int type = image.getType() == 0? BufferedImage.TYPE_INT_ARGB : image.getType();
 

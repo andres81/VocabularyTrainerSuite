@@ -45,6 +45,11 @@ public interface Representative {
     
     /**
      * 
+     */
+    public void setSound(String sound);
+    
+    /**
+     * 
      * @return 
      */
     public UUID getUuid();

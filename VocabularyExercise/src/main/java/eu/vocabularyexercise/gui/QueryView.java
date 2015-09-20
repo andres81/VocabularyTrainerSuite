@@ -75,9 +75,6 @@ public class QueryView extends JLabel implements MouseListener {
      */
     public void setRepresentative(Representative representative) {
         this.representative = representative;
-        if (representation == Representation.SOUND) {
-            playSound();
-        }
         updateGui();
     }
     
@@ -100,12 +97,14 @@ public class QueryView extends JLabel implements MouseListener {
         }
     }
 
+    /**
+     * 
+     */
     private void playSound() {
         String audio = representative.getSound();
         if (audio == null || audio.equals("")) return;
         final AudioFilePlayer player = new AudioFilePlayer ();
         player.playAudioFile(audio);
-        
     }
     
     @Override

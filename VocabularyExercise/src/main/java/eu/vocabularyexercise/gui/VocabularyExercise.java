@@ -16,6 +16,7 @@
  */
 package eu.vocabularyexercise.gui;
 
+import eu.vocabularyexercise.domain.AudioFilePlayer;
 import eu.vocabularyexercise.domain.DefaultVocabularyController;
 import eu.vocabularyexercise.domain.DefaultVocabularyExerciseModel;
 import eu.vocabularyexercise.domain.interfaces.VocabularyController;
@@ -76,8 +77,8 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
         super();
         init();
         model = new DefaultVocabularyExerciseModel();
-        setController(new DefaultVocabularyController(model));
-        setModel(model);
+        initController(new DefaultVocabularyController(model));
+        initModel(model);
     }
     
     /**
@@ -98,12 +99,8 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      */
     public VocabularyExercise(File file, VocabularyExerciseModel model, VocabularyController controller) {
         this(file);
-        if (model != null) {
-            setModel(model);
-        }
-        if (controller != null) {
-            setController(controller);
-        }
+        initModel(model);
+        initController(controller);
     }
     
     /**
@@ -137,6 +134,14 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      * @param model
      */
     public void setModel(VocabularyExerciseModel model) {
+        initModel(model);
+    }
+    
+    /**
+     * 
+     * @param model 
+     */
+    private void initModel(VocabularyExerciseModel model) {
         if (model == null) {
             throw new NullPointerException("Model can't be null.");
         }
@@ -151,6 +156,14 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      * @param controller 
      */
     public void setController(VocabularyController controller) {
+        initController(controller);
+    }
+    
+    /**
+     * 
+     * @param controller 
+     */
+    private void initController(VocabularyController controller) {
         if (controller == null) {
             throw new NullPointerException("Can't set a null value for the controller!");
         }
@@ -178,6 +191,7 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
                     break;
                 case ACTIVEPAIR:
                     queryView.setRepresentative(model.getActiveQuery());
+                    if (model.getQueryRepresentation() == Representation.SOUND) playSound();
                 case OPTIONSINTERACTIONTYPE:
                     representativesView.setRepresentation(model.getOptionsRepresentation());
                     break;
@@ -244,5 +258,16 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
                 model.setQueryRepresentation(Representation.valueOf(ae.getActionCommand()));
             }
         } catch (IllegalArgumentException ex) {}
+    }
+    
+    /**
+     * 
+     */
+    private void playSound() {
+        String audio = model.getActiveQuery().getSound();
+        if (audio == null || audio.equals("")) return;
+        final AudioFilePlayer player = new AudioFilePlayer();
+        player.playAudioFile(audio);
+        
     }
 }

@@ -192,7 +192,7 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
         initIteration();
         updateActivePairs();
         updateOptions();
-        setRandomActiveQueryPair();
+        setRandomActiveQueryPairNoUpdate();
         setChanged();
         notifyObservers(UpdateType.PAIRS);
     }
@@ -205,8 +205,6 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
         direction = iteration.getColumnOrder();
         queryRepresentation = iteration.getQueryType();
         optionsRepresentation = iteration.getOptionType();
-        setChanged();
-        notifyObservers(UpdateType.QUERYINTERACTIONTYPE);
     }
     
     /**

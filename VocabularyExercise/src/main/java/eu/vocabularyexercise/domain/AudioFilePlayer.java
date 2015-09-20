@@ -48,7 +48,6 @@ public class AudioFilePlayer {
             ex.printStackTrace();
             return;
         }
-        System.out.println("*"+url.toString()+"*");
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
         } catch (UnsupportedAudioFileException ex) {
@@ -57,16 +56,18 @@ public class AudioFilePlayer {
             Logger.getLogger(AudioFilePlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        SourceDataLine line = null;
         try (AudioInputStream ais = getAudioInputStream(url)) {
             AudioFormat audioFormat = getAudioFormat(ais.getFormat());
             Info info = new Info(SourceDataLine.class, audioFormat);
-            SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);
+            line = (SourceDataLine) AudioSystem.getLine(info);
             if (line != null) {
                 line.open(audioFormat);
                 line.start();
                 stream(getAudioInputStream(audioFormat, ais), line);
                 line.drain();
                 line.stop();
+                line.close();
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -74,6 +75,9 @@ public class AudioFilePlayer {
             ex.printStackTrace();
         } catch (LineUnavailableException ex) {
             ex.printStackTrace();
+        }
+        finally {
+            if (line != null) line.close();
         }
     }
     

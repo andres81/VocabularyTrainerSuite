@@ -266,7 +266,6 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      */
     private void playSound() {
         String audio = model.getActiveQuery().getSound();
-        System.out.println("audio: " + audio);
         if (audio == null || audio.equals("")) return;
         final AudioFilePlayer player = new AudioFilePlayer();
         player.playAudioFile(audio);

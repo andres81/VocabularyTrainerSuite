@@ -21,8 +21,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -126,19 +131,10 @@ public final class MenuBar extends JMenuBar implements ActionListener {
                 loadLessonXml();
                 break;
             case LOAD_LOCAL_LESSON_XML:
-                {
-                    JMenuItem item = (JMenuItem) ae.getSource();
-                    String fileName = item.getText();
-                    URL url;
-                    url = getClass().getResource("/" + fileName + ".xml");
-                    File file;
-                    try {
-                        file = new File(url.toURI());
-                        loadLessonXml(file);
-                    } catch (URISyntaxException ex) {
-                        ex.printStackTrace();
-                    }
-                }
+                JMenuItem item = (JMenuItem) ae.getSource();
+                String fileName = item.getText();
+                InputStream in  = getClass().getResourceAsStream("/" + fileName + ".xml");
+                loadLessonXml(in);
                 break;
         }
     }
@@ -152,15 +148,21 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(MenuBar.this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            loadLessonXml(fc.getSelectedFile());
+            try {
+                loadLessonXml(new FileInputStream(fc.getSelectedFile()));
+            } catch (FileNotFoundException ex) {
+                System.err.println("Something went wrong opening file!");
+                ex.printStackTrace();
+            }
         }
     }
     
-        /**
+    /**
      * 
+     * @param in 
      */
-    private void loadLessonXml(File xmlFile) {
-        controller.loadXmlFile(xmlFile);
+    private void loadLessonXml(InputStream in) {
+        controller.loadXmlFile(in);
     }
 
 }

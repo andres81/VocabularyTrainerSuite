@@ -30,6 +30,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.InputStream;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
@@ -83,22 +84,22 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
     
     /**
      * 
-     * @param file
+     * @param in 
      */
-    public VocabularyExercise(File file) {
+    public VocabularyExercise(InputStream in) {
         this();
-        Vocabulary voc = DefaultVocabulary.createFromXML(file);
+        Vocabulary voc = DefaultVocabulary.createFromXML(in);
         model.setVocabulary(voc);
     }
     
     /**
      * 
-     * @param file
+     * @param in
      * @param model
      * @param controller 
      */
-    public VocabularyExercise(File file, VocabularyExerciseModel model, VocabularyController controller) {
-        this(file);
+    public VocabularyExercise(InputStream in, VocabularyExerciseModel model, VocabularyController controller) {
+        this(in);
         initModel(model);
         initController(controller);
     }
@@ -265,6 +266,7 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      */
     private void playSound() {
         String audio = model.getActiveQuery().getSound();
+        System.out.println("audio: " + audio);
         if (audio == null || audio.equals("")) return;
         final AudioFilePlayer player = new AudioFilePlayer();
         player.playAudioFile(audio);

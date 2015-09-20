@@ -19,7 +19,6 @@
 
 <lesson
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:noNamespaceSchemaLocation='file:/home/andres81/swdev/VocabularyTrainerSuite/MainWindow/src/main/resources/lesson.xsd'
     id="1" 
     name="alfabet">
     <vocabulary>

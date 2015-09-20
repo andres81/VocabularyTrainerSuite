@@ -34,6 +34,7 @@ import generated.Pairtype;
 import generated.Pairelemtype;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.transform.stream.StreamSource;
 
 /**
  *
@@ -65,7 +66,7 @@ public class VocabularyXMLApi {
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION, "lesson.xsd");
             SchemaFactory sf = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
-            marshaller.setSchema(sf.newSchema(new File("src/main/resources/lesson.xsd")));
+            marshaller.setSchema(sf.newSchema(new StreamSource(VocabularyXMLApi.class.getResourceAsStream("/lesson.xsd"))));
         } catch (javax.xml.bind.JAXBException ex) {
             ex.printStackTrace(System.err);
         } catch (SAXException ex) {

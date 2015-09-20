@@ -32,6 +32,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URL;
 import javax.imageio.ImageIO;
@@ -40,6 +41,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
@@ -69,12 +71,12 @@ public class DefaultVocabulary implements Vocabulary {
     
     /**
      * 
-     * @param file
+     * @param in
      * @return 
      */
-    public static Vocabulary createFromXML(File file) {
+    public static Vocabulary createFromXML(InputStream in) {
         Vocabulary voc = new DefaultVocabulary();
-        Vocabularytype voctype = getVocabularyType(getLesson(file));
+        Vocabularytype voctype = getVocabularyType(getLesson(in));
         if (voctype == null) {
             return null;
         }
@@ -85,18 +87,18 @@ public class DefaultVocabulary implements Vocabulary {
 
     /**
      * 
-     * @param file
+     * @param in
      * @return 
      */
-    private static Lesson getLesson(File file) {
+    private static Lesson getLesson(InputStream in) {
         Lesson lesson;
         try {
-            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
-            Schema schema = sf.newSchema(new File("src/main/resources/lesson.xsd")); 
             JAXBContext jaxbContext = JAXBContext.newInstance(Lesson.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
+            Schema schema = sf.newSchema(new StreamSource(DefaultVocabulary.class.getResourceAsStream("/lesson.xsd"))); 
             jaxbUnmarshaller.setSchema(schema);
-            lesson = (Lesson) jaxbUnmarshaller.unmarshal(file);
+            lesson = (Lesson) jaxbUnmarshaller.unmarshal(in);
         } catch (JAXBException | SAXException e) {
             e.printStackTrace();
             System.err.println("Could not load lesson from xml!");

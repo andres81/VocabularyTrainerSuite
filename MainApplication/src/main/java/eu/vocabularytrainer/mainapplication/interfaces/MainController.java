@@ -16,7 +16,7 @@
  */
 package eu.vocabularytrainer.mainapplication.interfaces;
 
-import java.io.File;
+import java.io.InputStream;
 
 /**
  *
@@ -24,6 +24,6 @@ import java.io.File;
  */
 public interface MainController {
 
-    public void loadXmlFile(File selectedFile);
+    public void loadXmlFile(InputStream in);
     
 }

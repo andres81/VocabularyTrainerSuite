@@ -19,6 +19,8 @@ package eu.vocabularyexercise.domain;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
  
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -44,9 +46,17 @@ public class AudioFilePlayer {
             url = new URL(urlString);
         } catch (MalformedURLException ex) {
             ex.printStackTrace();
-            System.out.println("didnt play");
             return;
         }
+        System.out.println("*"+url.toString()+"*");
+        try {
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(AudioFilePlayer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AudioFilePlayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         try (AudioInputStream ais = getAudioInputStream(url)) {
             AudioFormat audioFormat = getAudioFormat(ais.getFormat());
             Info info = new Info(SourceDataLine.class, audioFormat);

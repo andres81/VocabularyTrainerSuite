@@ -21,6 +21,7 @@ import eu.vocabularytrainer.mainapplication.interfaces.MainModel;
 import eu.vocabularytrainer.vocabulary.DefaultVocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import java.io.File;
+import java.io.InputStream;
 
 /**
  *
@@ -40,11 +41,11 @@ public class DefaultMainController implements MainController {
 
     /**
      * 
-     * @param selectedFile 
+     * @param in
      */
     @Override
-    public void loadXmlFile(File selectedFile) {
-        Vocabulary vocabulary = DefaultVocabulary.createFromXML(selectedFile);
+    public void loadXmlFile(InputStream in) {
+        Vocabulary vocabulary = DefaultVocabulary.createFromXML(in);
         model.setVocabulary(vocabulary);
     }
 }

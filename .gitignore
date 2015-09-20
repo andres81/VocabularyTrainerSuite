@@ -18,3 +18,5 @@ nb-configuration.xml
 /MainWindow/target/
 /MainApplication/target/
 */target/*
+/target/
+dependency-reduced-pom.xml

@@ -98,6 +98,7 @@ public class DefaultVocabulary implements Vocabulary {
             jaxbUnmarshaller.setSchema(schema);
             lesson = (Lesson) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException | SAXException e) {
+            e.printStackTrace();
             System.err.println("Could not load lesson from xml!");
             return null; // TODO throw exception to be handled up the line.
         }

@@ -20,6 +20,11 @@ import eu.vocabularytrainer.mainapplication.interfaces.MainController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -37,6 +42,7 @@ public final class MenuBar extends JMenuBar implements ActionListener {
      * 
      */
     public static final String LOAD_LESSON_XML = "LOAD_LESSON_XML";
+    public static final String LOAD_LOCAL_LESSON_XML = "LOAD_LOCAL_LESSON_XML";
     
     private final MainController controller;
     
@@ -57,25 +63,60 @@ public final class MenuBar extends JMenuBar implements ActionListener {
      */
     public JMenu getVocabularyMenu(MainController controller) {
         JMenu m = new JMenu("Vocabulary");
+        m.add(getLoadLesson());
+        m.add(getLoadRusLessons());
+        return m;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    private JMenuItem getLoadLesson() {
         JMenuItem menuItem = new JMenuItem("Load a lesson");
         KeyStroke keyStrokeToOpen = KeyStroke.getKeyStroke(
                 KeyEvent.VK_X, 
                 KeyEvent.CTRL_DOWN_MASK);
         menuItem.setAccelerator(keyStrokeToOpen);
-        menuItem.setActionCommand(MenuBar.LOAD_LESSON_XML);
-        menuItem.addActionListener(MenuBar.this);
-        m.add(menuItem);
-        return m;
+        menuItem.setActionCommand(LOAD_LESSON_XML);
+        menuItem.addActionListener(this);
+        return menuItem;
     }
-
+    
+    private JMenu getLoadRusLessons() {
+        JMenuItem menuItem = new JMenuItem("rus-lesson1-alfabet");
+        menuItem.setActionCommand(LOAD_LOCAL_LESSON_XML);
+        menuItem.addActionListener(this);
+        JMenu subMenu = new JMenu("Russian lessons");
+        subMenu.add(menuItem);
+        return subMenu;
+    }
+    
     /**
      * 
      * @param ae 
      */
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getActionCommand().equals(MenuBar.LOAD_LESSON_XML)) {
-            loadLessonXml();
+        switch (ae.getActionCommand()) {
+            case LOAD_LESSON_XML:
+                loadLessonXml();
+                break;
+            case LOAD_LOCAL_LESSON_XML:
+                {
+                    JMenuItem item = (JMenuItem) ae.getSource();
+                    String fileName = item.getText();
+                    URL url;
+                    url = getClass().getResource("/" + fileName + ".xml");
+                    File file;
+                    try {
+                        file = new File(url.toURI());
+                        loadLessonXml(file);
+                    } catch (URISyntaxException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                break;
         }
     }
     
@@ -88,7 +129,15 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(MenuBar.this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            controller.loadXmlFile(fc.getSelectedFile());
+            loadLessonXml(fc.getSelectedFile());
         }
     }
+    
+        /**
+     * 
+     */
+    private void loadLessonXml(File xmlFile) {
+        controller.loadXmlFile(xmlFile);
+    }
+
 }

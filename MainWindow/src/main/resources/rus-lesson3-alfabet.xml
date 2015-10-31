@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * VocabularyTrainer Copyright (C) 2015 André Schepers andreschepers81@gmail.com
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see \<http://www.gnu.org/licenses/>.
+ * -->
+
+
+<lesson
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    id="1" 
+    name="alfabet">
+    <vocabulary>
+        <instructions>
+            <iterations>
+                <iteration index="0">
+                    <query type="audio"></query>
+                    <options type="text"></options>
+                    <columnorder>first-second</columnorder>
+                </iteration>
+            </iterations>
+        </instructions>
+        <pairs>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-f0a589da.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>не</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text></text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-bade482d.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>что</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, ?, Г, Д</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-bf5460f8.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>ты</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, ?, Д</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-f06e508c.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>это</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, Г, ?</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-80cf7d55.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>на</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, Г, ?</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-fc38bfb1.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>он</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, ?, Д</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-2383e20d.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>вы</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, ?, Г, Д</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-b00d753d.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>как</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, ?, В, Г, Д</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-291dcf07.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>мы</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>?, Б, В, Г, Д</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-8f1e46da.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>да</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, ?, Г, Д</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-35ffe219.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>нет</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, Б, В, Г, ?</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-ea0055df.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>так</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>?, Б, В, Г, Д</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-67775052.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>но</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+            <pair>
+                <first>
+                    <text>А, ?, В, Г, Д</text>
+                    <image></image>
+                    <audio>http://packs.shtooka.net/rus-balm-voc-sakhno/ogg/rus-f0fc959a.ogg</audio>
+                    <video></video>
+                </first>
+                <second>
+                    <text>то</text>
+                    <image></image>
+                    <audio></audio>
+                    <video></video>
+                </second>
+            </pair>
+        </pairs>
+    </vocabulary>
+</lesson>

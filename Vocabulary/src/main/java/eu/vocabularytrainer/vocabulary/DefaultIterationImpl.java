@@ -24,7 +24,7 @@ import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
  *
  * @author Andre Schepers andreschepers81@gmail.com
  */
-class DefaultIterationImpl implements Iteration {
+public class DefaultIterationImpl implements Iteration {
 
     /**
      * 
@@ -103,23 +103,9 @@ class DefaultIterationImpl implements Iteration {
      * @param order 
      */
     @Override
-    public void setColumnOrder(ColumnOrderType order) {
-        if (order == null) throw new NullPointerException();
-        
-        switch (order) {
-            case FIRST_FIRST:
-                this.direction = Direction.COLUMNONETOONE;
-                break;
-            case FIRST_SECOND:
-                this.direction = Direction.COLUMNONETOTWO;
-                break;
-            case SECOND_FIRST:
-                this.direction = Direction.COLUMNTWOTOONE;
-                break;
-            case SECOND_SECOND:
-                this.direction = Direction.COLUMNTWOTOTWO;
-                break;
-        } 
+    public void setColumnOrder(Direction direction) {
+        if (direction == null) throw new NullPointerException();
+        this.direction = direction;
     }
 
     /**
@@ -127,20 +113,9 @@ class DefaultIterationImpl implements Iteration {
      * @param type 
      */
     @Override
-    public void setOptionType(VocabularyElementType type) {
-        if (type == null) throw new NullPointerException();
-        
-        switch (type) {
-            case AUDIO:
-                this.optionRepresentation = Representation.SOUND;
-                break;
-            case TEXT:
-                this.optionRepresentation = Representation.STRING;
-                break;
-            case IMAGE:
-                this.optionRepresentation = Representation.IMAGE;
-                break;
-        }
+    public void setOptionType(Representation representation) {
+        if (representation == null) throw new NullPointerException();
+        this.optionRepresentation = representation;
     }
 
     /**
@@ -148,20 +123,9 @@ class DefaultIterationImpl implements Iteration {
      * @param type 
      */
     @Override
-    public void setQueryType(VocabularyElementType type) {
-        if (type == null) throw new NullPointerException();
-        
-        switch (type) {
-            case AUDIO:
-                this.queryRepresentation = Representation.SOUND;
-                break;
-            case TEXT:
-                this.queryRepresentation = Representation.STRING;
-                break;
-            case IMAGE:
-                this.queryRepresentation = Representation.IMAGE;
-                break;
-        }
+    public void setQueryType(Representation representation) {
+        if (representation == null) throw new NullPointerException();
+        this.queryRepresentation = representation;
     }
     
     /**

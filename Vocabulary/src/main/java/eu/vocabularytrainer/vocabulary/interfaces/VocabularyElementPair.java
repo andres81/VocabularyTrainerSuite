@@ -16,12 +16,15 @@
  */
 package eu.vocabularytrainer.vocabulary.interfaces;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import eu.vocabularytrainer.vocabulary.DefaultVocabularyElementPair;
 import java.util.UUID;
 
 /**
  *
  * @author andres81
  */
+@JsonDeserialize(as=DefaultVocabularyElementPair.class)
 public interface VocabularyElementPair {
 
     /**

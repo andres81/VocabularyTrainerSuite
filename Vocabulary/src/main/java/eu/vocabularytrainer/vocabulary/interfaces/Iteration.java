@@ -16,8 +16,8 @@
  */
 package eu.vocabularytrainer.vocabulary.interfaces;
 
-import eu.vocabularytrainer.vocabulary.ColumnOrderType;
-import eu.vocabularytrainer.vocabulary.VocabularyElementType;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import eu.vocabularytrainer.vocabulary.DefaultIterationImpl;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
 
@@ -25,6 +25,7 @@ import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
  *
  * @author Andre Schepers andreschepers81@gmail.com
  */
+@JsonDeserialize(as=DefaultIterationImpl.class)
 public interface Iteration {
  
     /**
@@ -49,7 +50,7 @@ public interface Iteration {
      * 
      * @param type
      */
-    public void setOptionType(VocabularyElementType type);
+    public void setOptionType(Representation representation);
     
     /**
      * 
@@ -61,7 +62,7 @@ public interface Iteration {
      * 
      * @param type
      */
-    public void setQueryType(VocabularyElementType type);
+    public void setQueryType(Representation representation);
     
     /**
      * 
@@ -73,5 +74,5 @@ public interface Iteration {
      * 
      * @param order
      */
-    public void setColumnOrder(ColumnOrderType order);
+    public void setColumnOrder(Direction direction);
 }

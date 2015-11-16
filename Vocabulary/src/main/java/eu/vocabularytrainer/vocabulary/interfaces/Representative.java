@@ -16,6 +16,8 @@
  */
 package eu.vocabularytrainer.vocabulary.interfaces;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import eu.vocabularytrainer.vocabulary.DefaultRepresentative;
 import java.awt.Image;
 import java.util.UUID;
 
@@ -23,6 +25,7 @@ import java.util.UUID;
  *
  * @author andres81
  */
+@JsonDeserialize(as=DefaultRepresentative.class)
 public interface Representative {
 
     /**

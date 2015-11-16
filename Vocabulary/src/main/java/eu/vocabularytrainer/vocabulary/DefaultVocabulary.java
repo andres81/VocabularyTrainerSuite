@@ -22,10 +22,13 @@ import java.io.IOException;
 import java.io.File;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
 import eu.vocabularytrainer.vocabulary.interfaces.Iteration;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 
 
@@ -122,5 +125,15 @@ public class DefaultVocabulary implements Vocabulary {
     @Override
     public List<Iteration> getIterations() {
         return iterations;
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException, JsonProcessingException, IOException {
+      ObjectMapper mapper = new ObjectMapper();
+//      Vocabulary vocabularyFromXml = VocabularyFromXMLFactory.createFromXML(new FileInputStream("/home/andres81/swdev/VocabularyTrainerSuite/MainWindow/src/main/resources/rus-lesson1-alfabet.xml"));
+      File file = new File("/home/andres81/rus-lesson1.json");
+      File file2 = new File("/home/andres81/rus-lesson2.json");
+//      mapper.writerWithDefaultPrettyPrinter().writeValue(file, vocabularyFromXml);
+      DefaultVocabulary voc = mapper.readValue(file, DefaultVocabulary.class);
+      mapper.writerWithDefaultPrettyPrinter().writeValue(file2, voc);
     }
 }

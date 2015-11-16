@@ -127,9 +127,9 @@ public class VocabularyFromXMLFactory {
     private static Iteration getIteration(Iterationtype type) {
         Iteration iteration = new DefaultIterationImpl();
         iteration.setIndex(type.getIndex());
-        iteration.setColumnOrder(ColumnOrderType.fromValue(type.getColumnorder().toString()));
-        iteration.setOptionType(VocabularyElementType.fromValue(type.getOptions().getType().toString()));
-        iteration.setQueryType(VocabularyElementType.fromValue(type.getQuery().getType().toString()));
+        iteration.setColumnOrder(ColumnOrderType.fromValue(type.getColumnorder().value()));
+        iteration.setOptionType(VocabularyElementType.fromValue(type.getOptions().getType().value()));
+        iteration.setQueryType(VocabularyElementType.fromValue(type.getQuery().getType().value()));
         return iteration;
     }
     

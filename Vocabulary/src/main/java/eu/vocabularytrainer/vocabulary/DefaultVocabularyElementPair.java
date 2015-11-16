@@ -35,17 +35,31 @@ public class DefaultVocabularyElementPair implements VocabularyElementPair {
     /**
      * 
      */
-    private final Representative entryOne;
+    private Representative first;
+
+    public void setFirst(Representative first) {
+        this.first = first;
+    }
+
+    public void setSecond(Representative second) {
+        this.second = second;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
     
     /**
      * 
      */
-    private final Representative entryTwo;
+    private Representative second;
     
     /**
      * 
      */
-    private final UUID uuid;
+    private UUID uuid;
+    
+    public DefaultVocabularyElementPair() {}
     
     /**
      * 
@@ -58,8 +72,8 @@ public class DefaultVocabularyElementPair implements VocabularyElementPair {
             throw new NullPointerException();
         }
         this.uuid = UUID.randomUUID();
-        entryOne = first;
-        entryTwo = second;
+        this.first = first;
+        this.second = second;
     }
     
     /**
@@ -73,8 +87,8 @@ public class DefaultVocabularyElementPair implements VocabularyElementPair {
             throw new NullPointerException();
         }
         this.uuid = pair.getUuid();
-        entryOne = pair.getFirst();
-        entryTwo = pair.getSecond();
+        this.first = pair.getFirst();
+        this.second = pair.getSecond();
     }
     
     /**
@@ -83,7 +97,7 @@ public class DefaultVocabularyElementPair implements VocabularyElementPair {
      */
     @Override
     public Representative getFirst() {
-        return entryOne;
+        return first;
     }
     
     /**
@@ -92,9 +106,9 @@ public class DefaultVocabularyElementPair implements VocabularyElementPair {
      */
     @Override
     public Representative getSecond() {
-        return entryTwo;
+        return second;
     }
-    
+
     /**
      * 
      * @return 

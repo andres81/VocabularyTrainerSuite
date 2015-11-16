@@ -21,7 +21,7 @@ import eu.vocabularyexercise.domain.DefaultVocabularyController;
 import eu.vocabularyexercise.domain.DefaultVocabularyExerciseModel;
 import eu.vocabularyexercise.domain.interfaces.VocabularyController;
 import eu.vocabularyexercise.domain.interfaces.VocabularyExerciseModel;
-import eu.vocabularytrainer.vocabulary.DefaultVocabulary;
+import eu.vocabularytrainer.vocabulary.VocabularyFromXMLFactory;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
@@ -29,7 +29,6 @@ import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.UpdateType;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.InputStream;
 import java.util.Observable;
 import java.util.Observer;
@@ -88,7 +87,7 @@ public class VocabularyExercise extends JPanel implements Observer, Representati
      */
     public VocabularyExercise(InputStream in) {
         this();
-        Vocabulary voc = DefaultVocabulary.createFromXML(in);
+        Vocabulary voc = VocabularyFromXMLFactory.createFromXML(in);
         model.setVocabulary(voc);
     }
     

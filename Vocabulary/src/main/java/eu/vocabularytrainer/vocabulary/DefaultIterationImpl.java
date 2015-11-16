@@ -19,8 +19,6 @@ package eu.vocabularytrainer.vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.Iteration;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
-import generated.Columnordertype;
-import generated.Vocelemtype;
 
 /**
  *
@@ -105,7 +103,7 @@ class DefaultIterationImpl implements Iteration {
      * @param order 
      */
     @Override
-    public void setColumnOrder(Columnordertype order) {
+    public void setColumnOrder(ColumnOrderType order) {
         if (order == null) throw new NullPointerException();
         
         switch (order) {
@@ -129,7 +127,7 @@ class DefaultIterationImpl implements Iteration {
      * @param type 
      */
     @Override
-    public void setOptionType(Vocelemtype type) {
+    public void setOptionType(VocabularyElementType type) {
         if (type == null) throw new NullPointerException();
         
         switch (type) {
@@ -150,7 +148,7 @@ class DefaultIterationImpl implements Iteration {
      * @param type 
      */
     @Override
-    public void setQueryType(Vocelemtype type) {
+    public void setQueryType(VocabularyElementType type) {
         if (type == null) throw new NullPointerException();
         
         switch (type) {

@@ -16,10 +16,10 @@
  */
 package eu.vocabularytrainer.vocabulary.interfaces;
 
+import eu.vocabularytrainer.vocabulary.ColumnOrderType;
+import eu.vocabularytrainer.vocabulary.VocabularyElementType;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
-import generated.Columnordertype;
-import generated.Vocelemtype;
 
 /**
  *
@@ -49,7 +49,7 @@ public interface Iteration {
      * 
      * @param type
      */
-    public void setOptionType(Vocelemtype type);
+    public void setOptionType(VocabularyElementType type);
     
     /**
      * 
@@ -61,7 +61,7 @@ public interface Iteration {
      * 
      * @param type
      */
-    public void setQueryType(Vocelemtype type);
+    public void setQueryType(VocabularyElementType type);
     
     /**
      * 
@@ -73,5 +73,5 @@ public interface Iteration {
      * 
      * @param order
      */
-    public void setColumnOrder(Columnordertype order);
+    public void setColumnOrder(ColumnOrderType order);
 }

@@ -17,13 +17,18 @@
 package eu.vocabularyexercise.gui;
 
 import eu.vocabularyexercise.domain.AudioFilePlayer;
-import eu.vocabularytrainer.vocabulary.DefaultVocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
 import static java.awt.Component.CENTER_ALIGNMENT;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -56,7 +61,7 @@ public class QueryView extends JLabel implements MouseListener {
         setMinimumSize(new Dimension(300, 100));
         setAlignmentX(CENTER_ALIGNMENT);
         representation = Representation.STRING;
-        audioIcon = new ImageIcon(DefaultVocabulary.getImageFromUrl(getClass().getResource("/Audio-icon.png")));
+        audioIcon = new ImageIcon(getImageFromUrl(getClass().getResource("/Audio-icon.png")));
         this.addMouseListener(this);
     }
     
@@ -125,4 +130,65 @@ public class QueryView extends JLabel implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent me) {}
+    
+    /**
+     * 
+     * @param imageUrlString
+     * @return 
+     */
+    public static Image getImageFromUrlString(String imageUrlString) {
+        URL url;
+        try {
+            url = new URL(imageUrlString);
+        } catch (IOException e) {
+            System.err.println("Could not form url from given image url.");
+            return null;
+        }
+        return getImageFromUrl(url);
+    }
+    
+    /**
+     * 
+     * @param imageUrl
+     * @return 
+     */
+    public static Image getImageFromUrl(URL imageUrl) {
+        BufferedImage image;
+        try {
+            image = ImageIO.read(imageUrl);
+        } catch (IllegalArgumentException | IOException ex) {
+            System.err.println("Could not load image from url: " + imageUrl);
+            return null;
+        }
+        int type = image.getType() == 0? BufferedImage.TYPE_INT_ARGB : image.getType();
+
+        return resizeImage(image, type);
+    }
+    
+    /**
+     * 
+     * @param originalImage
+     * @param type
+     * @return 
+     */
+   private static BufferedImage resizeImage(BufferedImage originalImage, int type){
+        
+        double orgHeight = originalImage.getHeight();
+        double orgWidth = originalImage.getWidth();
+        double ar = orgWidth / orgHeight;
+        int width = (int)(100.0 * ar);
+        
+        BufferedImage resizedImage = new BufferedImage(width, 100, type);
+        Graphics2D g = resizedImage.createGraphics();
+              g.drawImage(originalImage,
+                          // Area to draw on
+                          0, 0, width, 100,
+                          // part of the original image we take, full of course.
+                          0, 0, originalImage.getWidth(), originalImage.getHeight(),
+                          // Optional observer that is called when image is fully drawn.
+                          null);
+        g.dispose();
+
+        return resizedImage;
+    }
 }

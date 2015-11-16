@@ -18,9 +18,8 @@ package eu.vocabularytrainer.mainapplication;
 
 import eu.vocabularytrainer.mainapplication.interfaces.MainController;
 import eu.vocabularytrainer.mainapplication.interfaces.MainModel;
-import eu.vocabularytrainer.vocabulary.DefaultVocabulary;
+import eu.vocabularytrainer.vocabulary.VocabularyFromXMLFactory;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
-import java.io.File;
 import java.io.InputStream;
 
 /**
@@ -45,7 +44,7 @@ public class DefaultMainController implements MainController {
      */
     @Override
     public void loadXmlFile(InputStream in) {
-        Vocabulary vocabulary = DefaultVocabulary.createFromXML(in);
+        Vocabulary vocabulary = VocabularyFromXMLFactory.createFromXML(in);
         model.setVocabulary(vocabulary);
     }
 }

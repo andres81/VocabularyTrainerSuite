@@ -16,6 +16,9 @@
  */
 package eu.vocabularytrainer.vocabulary;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import eu.vocabularytrainer.vocabulary.interfaces.Iteration;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
 import java.util.List;
@@ -30,7 +33,6 @@ import generated.Vocabularytype;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -45,6 +47,10 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 
 /**
@@ -83,6 +89,26 @@ public class DefaultVocabulary implements Vocabulary {
         voc.setPairs(getPairs(voctype));
         voc.setIterations(getIterations(voctype));
         return voc;
+    }
+    
+    /**
+     * 
+     * @param file
+     * @return 
+     */
+    public static Vocabulary createFromJSON(File file) {
+      ObjectMapper mapper = new ObjectMapper();
+      Vocabulary vocabulary = null;
+      try {
+        vocabulary = mapper.readValue(file, DefaultVocabulary.class);
+      } catch (JsonGenerationException e) {
+        e.printStackTrace();
+      } catch (JsonMappingException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      return vocabulary;
     }
 
     /**
@@ -270,18 +296,18 @@ public class DefaultVocabulary implements Vocabulary {
         double ar = orgWidth / orgHeight;
         int width = (int)(100.0 * ar);
         
-	BufferedImage resizedImage = new BufferedImage(width, 100, type);
-	Graphics2D g = resizedImage.createGraphics();
-        g.drawImage(originalImage,
-                    // Area to draw on
-                    0, 0, width, 100,
-                    // part of the original image we take, full of course.
-                    0, 0, originalImage.getWidth(), originalImage.getHeight(),
-                    // Optional observer that is called when image is fully drawn.
-                    null);
-	g.dispose();
+        BufferedImage resizedImage = new BufferedImage(width, 100, type);
+        Graphics2D g = resizedImage.createGraphics();
+              g.drawImage(originalImage,
+                          // Area to draw on
+                          0, 0, width, 100,
+                          // part of the original image we take, full of course.
+                          0, 0, originalImage.getWidth(), originalImage.getHeight(),
+                          // Optional observer that is called when image is fully drawn.
+                          null);
+        g.dispose();
 
-	return resizedImage;
+        return resizedImage;
     }
 
     /**
@@ -300,5 +326,18 @@ public class DefaultVocabulary implements Vocabulary {
     @Override
     public List<Iteration> getIterations() {
         return iterations;
+    }
+    
+    /**
+     * 
+     * @param args
+   * @throws java.io.FileNotFoundException
+   * @throws com.fasterxml.jackson.core.JsonProcessingException
+     */
+    public static void main(String[] args) throws FileNotFoundException, JsonProcessingException, IOException {
+      ObjectMapper mapper = new ObjectMapper();
+      Vocabulary vocabularyFromXml = DefaultVocabulary.createFromXML(new FileInputStream("/Users/andres81/thuisprojects/VocabularyTrainerSuite/MainWindow/src/main/resources/rus-lesson1-alfabet.xml"));
+      File file = new File("/Users/andres81/rus-lesson1.json");
+      mapper.writerWithDefaultPrettyPrinter().writeValue(file, vocabularyFromXml);
     }
 }

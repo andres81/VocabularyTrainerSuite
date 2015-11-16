@@ -1,43 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
+    <!-- Parent declaration -->
     <parent>
         <groupId>eu.vocabularytrainer</groupId>
         <artifactId>VocabularyTrainerSuite</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    
+    <!-- Package attributes -->
     <artifactId>Vocabulary</artifactId>
     <packaging>jar</packaging>
+    
+    <!-- Dependencies -->
     <dependencies>
+      
+        <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.2</version>
             <type>jar</type>
         </dependency>
+        
+        <!-- VocabularyXMLGenerator -->
         <dependency>
             <groupId>eu.vocabularytrainer</groupId>
             <artifactId>VocabularyXMLGenerator</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
+        
+        <!-- JSON Jackson -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.6.3</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.weld.se</groupId>
-            <artifactId>weld-se</artifactId>
-            <version>2.2.15.Final</version>
-        </dependency>
+        
     </dependencies>
+    
+    <!-- Properties -->
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
     
+    <!-- Build -->
     <build>
         <plugins>
           <plugin>

@@ -18,7 +18,6 @@ package eu.vocabularytrainer.vocabulary.interfaces;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import eu.vocabularytrainer.vocabulary.DefaultRepresentative;
-import java.awt.Image;
 import java.util.UUID;
 
 /**
@@ -32,7 +31,7 @@ public interface Representative {
      * 
      * @return 
      */
-    public Image getImage();
+    public String getImage();
     
     /**
      * 
@@ -48,6 +47,7 @@ public interface Representative {
     
     /**
      * 
+     * @param sound
      */
     public void setSound(String sound);
     

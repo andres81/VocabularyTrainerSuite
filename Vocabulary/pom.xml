@@ -12,6 +12,7 @@
     <!-- Package attributes -->
     <artifactId>Vocabulary</artifactId>
     <packaging>jar</packaging>
+    <version>1.0.0</version>
     
     <!-- Dependencies -->
     <dependencies>
@@ -21,14 +22,6 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.2</version>
-            <type>jar</type>
-        </dependency>
-        
-        <!-- VocabularyXMLGenerator -->
-        <dependency>
-            <groupId>eu.vocabularytrainer</groupId>
-            <artifactId>VocabularyXMLGenerator</artifactId>
-            <version>1.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         
@@ -48,7 +41,7 @@
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
     
-    <!-- Build -->
+<!--     Build 
     <build>
         <plugins>
           <plugin>
@@ -72,6 +65,6 @@
             </executions>
           </plugin>
         </plugins>
-    </build>
+    </build>-->
     
 </project>

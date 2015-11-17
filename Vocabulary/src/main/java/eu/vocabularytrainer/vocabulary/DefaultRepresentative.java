@@ -17,11 +17,7 @@
 package eu.vocabularytrainer.vocabulary;
 
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 import java.util.UUID;
-import javax.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,7 +38,7 @@ public class DefaultRepresentative implements Representative {
     /**
      * 
      */
-    private Image image = null;
+    private String image = null;
     
     /**
      * 
@@ -57,10 +53,9 @@ public class DefaultRepresentative implements Representative {
     /**
      * 
      */
-    @Inject
     public DefaultRepresentative() {
         uuid = UUID.randomUUID();
-        image = new BufferedImage(20, 20, TYPE_INT_RGB);
+        image = "";
         sound = "";
         title = "TITLE";
     }
@@ -71,7 +66,7 @@ public class DefaultRepresentative implements Representative {
      * @param image 
      * @param sound 
      */
-    public DefaultRepresentative(String title, Image image, String sound) {
+    public DefaultRepresentative(String title, String image, String sound) {
         this();
         this.title = title == null ? "title" : title;
         this.image = image;
@@ -82,7 +77,7 @@ public class DefaultRepresentative implements Representative {
      * 
      */
     @Override
-    public Image getImage() {
+    public String getImage() {
         return image;
     }
     
@@ -90,7 +85,7 @@ public class DefaultRepresentative implements Representative {
      * 
      * @param image 
      */
-    public void setImage(Image image) {
+    public void setImage(String image) {
         this.image = image;
     }
     

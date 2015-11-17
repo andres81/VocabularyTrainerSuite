@@ -18,8 +18,8 @@ package eu.vocabularytrainer.mainapplication;
 
 import eu.vocabularytrainer.mainapplication.interfaces.MainController;
 import eu.vocabularytrainer.mainapplication.interfaces.MainModel;
-import eu.vocabularytrainer.vocabulary.VocabularyFromXMLFactory;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
+import eu.vocabularytrainer.vocabularyxmlgenerator.VocabularyFromXMLFactory;
 import java.io.InputStream;
 
 /**

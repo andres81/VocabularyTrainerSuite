@@ -1,3 +1,5 @@
+package eu.vocabularytrainer.vocabularyxmlgenerator;
+
 /**
  * VocabularyTrainer Copyright (C) 2015 André Schepers andreschepers81@gmail.com
  * 
@@ -14,19 +16,27 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package eu.vocabularytrainer.vocabulary;
 
+
+import eu.vocabularytrainer.vocabulary.DefaultIterationImpl;
+import eu.vocabularytrainer.vocabulary.DefaultRepresentative;
+import eu.vocabularytrainer.vocabulary.DefaultVocabulary;
+import eu.vocabularytrainer.vocabulary.DefaultVocabularyElementPair;
 import eu.vocabularytrainer.vocabulary.interfaces.Iteration;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
+import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
+import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
+import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
+import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
+import generated.Columnordertype;
 import java.util.List;
 import java.util.ArrayList;
-import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
-import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
 import generated.Iterationtype;
 import generated.Lesson;
 import generated.Pairelemtype;
 import generated.Pairtype;
 import generated.Vocabularytype;
+import generated.Vocelemtype;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -127,10 +137,48 @@ public class VocabularyFromXMLFactory {
     private static Iteration getIteration(Iterationtype type) {
         Iteration iteration = new DefaultIterationImpl();
         iteration.setIndex(type.getIndex());
-        iteration.setColumnOrder(ColumnOrderType.fromValue(type.getColumnorder().value()));
-        iteration.setOptionType(VocabularyElementType.fromValue(type.getOptions().getType().value()));
-        iteration.setQueryType(VocabularyElementType.fromValue(type.getQuery().getType().value()));
+        iteration.setColumnOrder(columnOrderTypeToDirection(type.getColumnorder()));
+        iteration.setOptionType(vocelemtypeToVocabularyElementType(type.getOptions().getType()));
+        iteration.setQueryType(vocelemtypeToVocabularyElementType(type.getQuery().getType()));
         return iteration;
+    }
+    
+    /**
+     * 
+     * @param type
+     * @return 
+     */
+    private static Representation vocelemtypeToVocabularyElementType(Vocelemtype type) {
+      switch (type) {
+        case AUDIO:
+          return Representation.SOUND;
+        case IMAGE:
+          return Representation.IMAGE;
+        case TEXT:
+          return Representation.STRING;
+        default:
+          return Representation.STRING;
+      }
+    }
+    
+    /**
+     * 
+     * @param type
+     * @return 
+     */
+    private static Direction columnOrderTypeToDirection(Columnordertype type) {
+      switch (type) {
+        case FIRST_FIRST:
+          return Direction.COLUMNONETOONE;
+        case FIRST_SECOND:
+          return Direction.COLUMNONETOTWO;
+        case SECOND_FIRST:
+          return Direction.COLUMNTWOTOONE;
+        case SECOND_SECOND:
+          return Direction.COLUMNTWOTOTWO;
+        default:
+          return Direction.COLUMNONETOONE;
+      }
     }
     
     /**
@@ -159,13 +207,13 @@ public class VocabularyFromXMLFactory {
         Representative first = 
                 new DefaultRepresentative(
                         pet1.getText(),
-                        getImageFromUrlString(pet1.getImage()),
+                        pet1.getImage(),
                         pet1.getAudio());
         
         Representative second =
                 new DefaultRepresentative(
                         pet2.getText(),
-                        getImageFromUrlString(pet2.getImage()),
+                        pet2.getImage(),
                         pet2.getAudio());
         
         return new DefaultVocabularyElementPair(first, second);

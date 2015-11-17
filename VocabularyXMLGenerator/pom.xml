@@ -22,7 +22,15 @@
 
     <!-- Name -->
     <name>VocabularyXMLGenerator</name>
-    
+        
+    <dependencies>
+        <dependency>
+            <groupId>eu.vocabularytrainer</groupId>
+            <artifactId>Vocabulary</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
     
     <!-- Build -->
     <build>
@@ -42,4 +50,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

@@ -100,7 +100,7 @@ public class DefaultIterationImpl implements Iteration {
 
     /**
      * 
-     * @param order 
+     * @param direction 
      */
     @Override
     public void setColumnOrder(Direction direction) {
@@ -110,7 +110,7 @@ public class DefaultIterationImpl implements Iteration {
 
     /**
      * 
-     * @param type 
+     * @param representation 
      */
     @Override
     public void setOptionType(Representation representation) {
@@ -120,7 +120,7 @@ public class DefaultIterationImpl implements Iteration {
 
     /**
      * 
-     * @param type 
+     * @param representation 
      */
     @Override
     public void setQueryType(Representation representation) {

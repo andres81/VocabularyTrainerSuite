@@ -103,7 +103,7 @@ public class DefaultRepresentative implements Representative {
      * @param title 
      */
     public void setTitle(String title) {
-        this.title = title == null ? "title" : "title";
+        this.title = title == null ? "title" : title;
     }
 
     /**

@@ -18,6 +18,8 @@ package eu.vocabularytrainer.vocabularyxmlgenerator;
  */
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.vocabularytrainer.vocabulary.DefaultIterationImpl;
 import eu.vocabularytrainer.vocabulary.DefaultRepresentative;
 import eu.vocabularytrainer.vocabulary.DefaultVocabulary;
@@ -40,6 +42,9 @@ import generated.Vocelemtype;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -277,5 +282,12 @@ public class VocabularyFromXMLFactory {
                           null);
         g.dispose();
         return resizedImage;
+    }
+   
+   public static void main(String[] args) throws FileNotFoundException, JsonProcessingException, IOException {
+      Vocabulary vocabularyFromXml = VocabularyFromXMLFactory.createFromXML(new FileInputStream("/Users/andres81/Thuisprojects/VocabularyTrainerSuite/MainWindow/src/main/resources/rus-lesson3-alfabet.xml"));
+      File file = new File("/Users/andres81/rus_lesson3.json");
+      ObjectMapper mapper = new ObjectMapper();
+      mapper.writerWithDefaultPrettyPrinter().writeValue(file, vocabularyFromXml);
     }
 }

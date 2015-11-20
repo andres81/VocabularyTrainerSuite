@@ -56,26 +56,6 @@ public class DefaultVocabulary implements Vocabulary {
     
     /**
      * 
-     * @param file
-     * @return 
-     */
-    public static Vocabulary createFromJSON(File file) {
-      ObjectMapper mapper = new ObjectMapper();
-      Vocabulary vocabulary = null;
-      try {
-        vocabulary = mapper.readValue(file, DefaultVocabulary.class);
-      } catch (JsonGenerationException e) {
-        e.printStackTrace();
-      } catch (JsonMappingException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      return vocabulary;
-    }
-
-    /**
-     * 
      * @return 
      */
     @Override
@@ -125,15 +105,5 @@ public class DefaultVocabulary implements Vocabulary {
     @Override
     public List<Iteration> getIterations() {
         return iterations;
-    }
-    
-    public static void main(String[] args) throws FileNotFoundException, JsonProcessingException, IOException {
-      ObjectMapper mapper = new ObjectMapper();
-//      Vocabulary vocabularyFromXml = VocabularyFromXMLFactory.createFromXML(new FileInputStream("/home/andres81/swdev/VocabularyTrainerSuite/MainWindow/src/main/resources/rus-lesson1-alfabet.xml"));
-      File file = new File("/home/andres81/rus-lesson1.json");
-      File file2 = new File("/home/andres81/rus-lesson2.json");
-//      mapper.writerWithDefaultPrettyPrinter().writeValue(file, vocabularyFromXml);
-      DefaultVocabulary voc = mapper.readValue(file, DefaultVocabulary.class);
-      mapper.writerWithDefaultPrettyPrinter().writeValue(file2, voc);
     }
 }

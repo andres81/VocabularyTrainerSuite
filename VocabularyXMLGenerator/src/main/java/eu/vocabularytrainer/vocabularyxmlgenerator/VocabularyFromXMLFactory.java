@@ -285,8 +285,8 @@ public class VocabularyFromXMLFactory {
     }
    
    public static void main(String[] args) throws FileNotFoundException, JsonProcessingException, IOException {
-      Vocabulary vocabularyFromXml = VocabularyFromXMLFactory.createFromXML(new FileInputStream("/Users/andres81/Thuisprojects/VocabularyTrainerSuite/MainWindow/src/main/resources/rus-lesson3-alfabet.xml"));
-      File file = new File("/Users/andres81/rus_lesson3.json");
+      Vocabulary vocabularyFromXml = VocabularyFromXMLFactory.createFromXML(new FileInputStream("/Users/andres81/Thuisprojects/VocabularyTrainerSuite/MainWindow/src/main/resources/rus-lesson1-alfabet.xml"));
+      File file = new File("/Users/andres81/rus_lesson2.json");
       ObjectMapper mapper = new ObjectMapper();
       mapper.writerWithDefaultPrettyPrinter().writeValue(file, vocabularyFromXml);
     }

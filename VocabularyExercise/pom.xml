@@ -17,12 +17,6 @@
         </dependency>
         <dependency>
             <groupId>eu.vocabularytrainer</groupId>
-            <artifactId>Vocabulary</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>eu.vocabularytrainer</groupId>
             <artifactId>VocabularyXMLGenerator</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>

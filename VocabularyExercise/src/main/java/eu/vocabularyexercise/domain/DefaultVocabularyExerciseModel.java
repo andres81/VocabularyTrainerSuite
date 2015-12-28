@@ -445,7 +445,6 @@ public class DefaultVocabularyExerciseModel extends Observable implements Vocabu
     private void setIterations(List<Iteration> iterations) {
         this.iterations = iterations;
         Collections.sort(this.iterations, new Comparator<Iteration>() {
-
             @Override
             public int compare(Iteration t, Iteration t1) {
                 int ti1 = t.getIndex();

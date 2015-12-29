@@ -18,26 +18,16 @@ package eu.vocabularyexercise.domain;
 
 
 import eu.vocabularyexercise.domain.interfaces.IVocabularyModel;
-import eu.vocabularytrainer.vocabulary.interfaces.Iteration;
-import eu.vocabularytrainer.vocabulary.interfaces.Representative;
 import eu.vocabularytrainer.vocabulary.interfaces.Representative.Representation;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
-import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.UpdateType;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 import java.util.UUID;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 
 
@@ -47,17 +37,9 @@ import org.apache.logging.log4j.Logger;
  */
 public class DefaultVocabularyModel extends Observable implements IVocabularyModel {
     
-    // Logging
-    private static final Logger logger = LogManager.getLogger(DefaultVocabularyExerciseModel.class);
-    private Map<UUID,VocabularyElementPair> activePairs = null;
-    private Map<UUID,VocabularyElementPair> vocabularyPairs = null;
-    private VocabularyElementPair activeQueryPair = null;
-    private List<Representative> options = null;
-    private Direction direction = null;
-    private int pairStartIndex = 1;
-    private int pairEndIndex = 1;
-    private List<Iteration> iterations = null;
-    private int iterationIndex;
+    private Vocabulary vocabulary = null;
+    private VocabularyElementPair activePair = null;
+    private List<VocabularyElementPair> activePairGroup = null;
     
     /**
      * 
@@ -65,59 +47,15 @@ public class DefaultVocabularyModel extends Observable implements IVocabularyMod
      */
     @Override
     public void setVocabulary(Vocabulary vocabulary) {
-        setVocabularyElementPairs(vocabulary.getPairs());
-        setIterations(vocabulary.getIterations());
-        iterationIndex = 0;
-        initIteration();
-        updateActivePairs();
-        updateOptions();
-        setRandomActiveQueryPairNoUpdate();
-        setChanged();
-        notifyObservers(UpdateType.PAIRS);
-    }
-    
-    /**
-     * 
-     */
-    private void initIteration() {
-        Iteration iteration = iterations.get(iterationIndex);
-        direction = iteration.getColumnOrder();
-    }
-    
-    /**
-     * 
-     * @param pairs
-     */
-    private void setVocabularyElementPairs(List<VocabularyElementPair> pairs) {
-        if (pairs == null) {
-            throw new NullPointerException();
+        this.vocabulary = vocabulary;
+        List<VocabularyElementPair> pairs = getActivePairGroup();
+        pairs.clear();
+        List<VocabularyElementPair> vocabularyPairs = vocabulary.getPairs();
+        for (int i=0;i<5&&i<vocabularyPairs.size();++i) {
+            pairs.add(vocabularyPairs.get(i));
         }
-        if (this.vocabularyPairs == null) {
-            this.vocabularyPairs = new LinkedHashMap<>();
-        }
-        this.vocabularyPairs.clear();
-        for (VocabularyElementPair pair : pairs) {
-            this.vocabularyPairs.put(pair.getUuid(), pair);
-        }
-        if (vocabularyPairs.size() < 1) return;
-        pairStartIndex = 0;
-    }
-    
-    /**
-     * 
-     */
-    private void updateActivePairs() {
-        if (vocabularyPairs == null) return;
-        if (activePairs == null) {
-            activePairs = new LinkedHashMap<>();
-        }
-        pairEndIndex = pairStartIndex + 4;
-        int size = vocabularyPairs.size();
-        pairEndIndex = (pairEndIndex < size) ? pairEndIndex : (size - 1);
-        activePairs.clear();
-        LinkedList<UUID> keys = new LinkedList<>(vocabularyPairs.keySet());
-        for (int i = pairStartIndex;i<=pairEndIndex;i++) {
-            activePairs.put(keys.get(i), vocabularyPairs.get(keys.get(i)));
+        if (pairs.size() > 0) {
+            setActivePair(pairs.get(0).getUuid());
         }
     }
     
@@ -126,9 +64,12 @@ public class DefaultVocabularyModel extends Observable implements IVocabularyMod
      */
     @Override
     public void setRandomActiveQueryPair() {
-        setRandomActiveQueryPairNoUpdate();
-        setChanged();
-        notifyObservers(UpdateType.ACTIVEPAIR);
+        List<VocabularyElementPair> pairs = getActivePairGroup();
+        if (pairs.size() > 0) {
+            Random r = new Random();
+            int newIndex = r.nextInt(pairs.size());
+            activePair = pairs.get(newIndex);
+        }
     }
     
     /**
@@ -141,68 +82,65 @@ public class DefaultVocabularyModel extends Observable implements IVocabularyMod
     }
 
     /**
-     * Set a new random active query pair.
+     * 
+     * @param index
+     * @return 
      */
-    private void setRandomActiveQueryPairNoUpdate() {
-        if (activePairs == null ||
-            activePairs.isEmpty()) {
-            return;
-        }
-        List<VocabularyElementPair> temp = new ArrayList<>(activePairs.values());
-        if (activeQueryPair != null &&
-            temp.size() > 1) {
-            temp.remove(activeQueryPair);
-        }
-        Random r = new Random();
-        int newIndex = r.nextInt(temp.size());
+    @Override
+    public Representation getQueryRepresentation(int index) {
+        //        vocabulary.getIterations().
+        return Representation.STRING;
     }
 
     /**
      * 
+     * @param index
+     * @return 
      */
-    private void updateOptions() {
-        if (activePairs == null) return;
-        options = new ArrayList<>();
-        for(VocabularyElementPair pair : activePairs.values()) {
-            if (direction == Direction.COLUMNONETOONE ||
-                direction == Direction.COLUMNTWOTOONE) {
-                options.add(pair.getFirst());
-            } else {
-                options.add(pair.getSecond());
+    @Override
+    public Representation getOptionsRepresentation(int index) {
+//        vocabulary.getIterations().
+        return Representation.STRING;
+    }
+
+    @Override
+    public Direction getPairsGroupDirection(int index) {
+        return Direction.COLUMNONETOTWO;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    public VocabularyElementPair getActivePair() {
+        return activePair;
+    }
+    
+    /**
+     * 
+     * @param uuid 
+     */
+    @Override
+    public void setActivePair(UUID uuid) {
+        for (VocabularyElementPair pair : activePairGroup) {
+            if (pair.getUuid() == uuid) {
+                this.activePair = pair;
+                return;
             }
         }
     }
     
     /**
      * 
-     * @param iterations 
+     * @return 
      */
-    private void setIterations(List<Iteration> iterations) {
-        this.iterations = iterations;
-        Collections.sort(this.iterations, new Comparator<Iteration>() {
-            @Override
-            public int compare(Iteration t, Iteration t1) {
-                int ti1 = t.getIndex();
-                int ti2 = t.getIndex();
-                if (ti1 < ti2) return -1;
-                if (ti1 == ti2) return 0;
-                return 1;
-            }
-        });
-    }
-
     @Override
-    public Representation getQueryRepresentation(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<VocabularyElementPair> getActivePairGroup() {
+        if (activePairGroup == null) {
+            activePairGroup = new ArrayList<>();
+        }
+        return activePairGroup;
     }
-
-    @Override
-    public Representation getOptionsRepresentation(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public VocabularyElementPair getActivePair() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }

@@ -18,8 +18,11 @@ package eu.vocabularyexercise.domain.interfaces;
 
 import eu.vocabularytrainer.vocabulary.interfaces.Representative;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
+import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary.Direction;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
+import java.util.List;
 import java.util.Observer;
+import java.util.UUID;
 
 /**
  *
@@ -60,8 +63,27 @@ public interface IVocabularyModel {
     
     /**
      * 
+     * @param uuid 
+     */
+    public void setActivePair(UUID uuid);
+    
+    /**
+     * 
+     * @return 
+     */
+    public List<VocabularyElementPair> getActivePairGroup();
+    
+    /**
+     * 
      * @param o 
      */
     public void addObserver(Observer o);
 
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    public Direction getPairsGroupDirection(int index);
+    
 }

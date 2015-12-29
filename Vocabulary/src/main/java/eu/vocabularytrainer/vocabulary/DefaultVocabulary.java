@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
 import eu.vocabularytrainer.vocabulary.interfaces.Iteration;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 
@@ -88,6 +90,16 @@ public class DefaultVocabulary implements Vocabulary {
     @Override
     public void setIterations(List<Iteration> iterations) {
         this.iterations = iterations;
+        Collections.sort(this.iterations, new Comparator<Iteration>() {
+            @Override
+            public int compare(Iteration t, Iteration t1) {
+                int ti1 = t.getIndex();
+                int ti2 = t.getIndex();
+                if (ti1 < ti2) return -1;
+                if (ti1 == ti2) return 0;
+                return 1;
+            }
+        });
     }
     
     /**

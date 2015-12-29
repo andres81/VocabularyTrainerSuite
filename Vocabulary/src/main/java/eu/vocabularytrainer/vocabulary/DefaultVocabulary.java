@@ -16,13 +16,14 @@
  */
 package eu.vocabularytrainer.vocabulary;
 
-import java.util.List;
-import java.util.ArrayList;
+import eu.vocabularytrainer.vocabulary.interfaces.Iteration;
+import eu.vocabularytrainer.vocabulary.interfaces.Representative;
 import eu.vocabularytrainer.vocabulary.interfaces.Vocabulary;
 import eu.vocabularytrainer.vocabulary.interfaces.VocabularyElementPair;
-import eu.vocabularytrainer.vocabulary.interfaces.Iteration;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 
 
@@ -35,7 +36,7 @@ public class DefaultVocabulary implements Vocabulary {
     /**
      * 
      */
-    private List<VocabularyElementPair> pairs;
+    private List<VocabularyElementPair> vocabularyPairs;
     
     /**
      * 
@@ -54,7 +55,7 @@ public class DefaultVocabulary implements Vocabulary {
      */
     @Override
     public List<VocabularyElementPair> getPairs() {
-        return pairs;
+        return vocabularyPairs;
     }
     
     /**
@@ -66,7 +67,7 @@ public class DefaultVocabulary implements Vocabulary {
         if (pairs == null) {
             throw new NullPointerException();
         }
-        this.pairs = pairs;
+        this.vocabularyPairs = pairs;
     }
     
     /**
@@ -77,10 +78,10 @@ public class DefaultVocabulary implements Vocabulary {
         if (pair == null) {
             throw new NullPointerException();
         }
-        if (pairs == null) {
-            pairs = new ArrayList<>();
+        if (vocabularyPairs == null) {
+            vocabularyPairs = new ArrayList<>();
         }
-        pairs.add(pair);
+        vocabularyPairs.add(pair);
     }
 
     /**
@@ -110,4 +111,56 @@ public class DefaultVocabulary implements Vocabulary {
     public List<Iteration> getIterations() {
         return iterations;
     }
+
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    @Override
+    public Representative.Representation getQueryRepresentation(int index) {
+      return getIterations().get(index/5).getQueryType();
+    }
+
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    @Override
+    public Representative.Representation getOptionsRepresentation(int index) {
+      return getIterations().get(index/5).getOptionType();
+    }
+
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    @Override
+    public Direction getPairsGroupDirection(int index) {
+      return getIterations().get(index/5).getColumnOrder();
+    }
+
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    @Override
+    public List<VocabularyElementPair> getPairs(int index) {
+      List<VocabularyElementPair> pairs = new ArrayList<>();
+      int pc = vocabularyPairs.size();
+      int nofGroupsPerIteration = pc / 5 + (pc%5 == 0 ? 0 : 1);
+      int reducedIndex = index % nofGroupsPerIteration;
+      for (int i=reducedIndex;i<reducedIndex+5;++i) {
+        if (i<pc) {
+          pairs.add(vocabularyPairs.get(i));
+        } else {
+          pairs.add(vocabularyPairs.get(i%pc));
+        }
+      }
+      return pairs;
+    }
+    
 }

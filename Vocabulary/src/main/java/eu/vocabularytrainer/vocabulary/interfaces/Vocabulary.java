@@ -70,4 +70,32 @@ public interface Vocabulary {
      */
     public List<Iteration> getIterations();
     
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    public Representative.Representation getQueryRepresentation(int index);
+    
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    public Representative.Representation getOptionsRepresentation(int index);
+    
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    public Direction getPairsGroupDirection(int index);
+    
+    /**
+     * 
+     * @param index
+     * @return 
+     */
+    public List<VocabularyElementPair> getPairs(int index);
+    
 }

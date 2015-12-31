@@ -25,8 +25,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
-
 /**
  *
  * @author Andre Schepers andreschepers81@gmail.com
